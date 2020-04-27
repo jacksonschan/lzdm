@@ -22,10 +22,10 @@ test_that(
       "R", 
       c(
         "-e", 
-        "pkgload::load_all(here::here());run_app()"
+        "setwd('~/rprojects/lzdm/'); pkgload::load_all(here::here());run_app()"
       )
     )
-    Sys.sleep(5)
+    Sys.sleep(15)
     expect_true(x$is_alive())
     x$kill()
   }

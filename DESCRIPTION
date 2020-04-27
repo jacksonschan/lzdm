@@ -13,7 +13,15 @@ Imports:
     DT,
     glue,
     htmltools,
-    pkgload
+    pkgload,
+    dplyr,
+    ggplot2,
+    tidyr,
+    lubridate,
+    sf,
+    tigris,
+    leaflet,
+    rgdal
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.0
