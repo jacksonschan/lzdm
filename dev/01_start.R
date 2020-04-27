@@ -15,12 +15,12 @@
 ## Add meta data about your application
 golem::fill_desc(
   pkg_name = "lzdm", # The Name of the package containing the App 
-  pkg_title = "PKG_TITLE", # The Title of the package containing the App 
-  pkg_description = "PKG_DESC.", # The Description of the package containing the App 
-  author_first_name = "AUTHOR_FIRST", # Your First Name
-  author_last_name = "AUTHOR_LAST", # Your Last Name
-  author_email = "AUTHOR@MAIL.COM", # Your Email
-  repo_url = NULL # The URL of the GitHub Repo (optional) 
+  pkg_title = "LA County Zip Desirability Map", # The Title of the package containing the App 
+  pkg_description = "Tool to filter, rank, visualize Zip Codes in LA County based on a weighted set common criteria used to decide how desirable a Zip Code/Neighborhood is to live in.", # The Description of the package containing the App 
+  author_first_name = "JACKSON", # Your First Name
+  author_last_name = "CHAN", # Your Last Name
+  author_email = "JACKSON.CHAN15@GMAIL.COM", # Your Email
+  repo_url = "https://github.com/jacksonschan/lzdm" # The URL of the GitHub Repo (optional) 
 )     
 
 ## Set {golem} options ----
@@ -28,16 +28,16 @@ golem::set_golem_options()
 
 ## Create Common Files ----
 ## See ?usethis for more information
-usethis::use_mit_license( name = "Golem User" )  # You can set another license here
+usethis::use_mit_license( name = "Jackson Chan" )  # You can set another license here
 usethis::use_readme_rmd( open = FALSE )
 usethis::use_code_of_conduct()
 usethis::use_lifecycle_badge( "Experimental" )
 usethis::use_news_md( open = FALSE )
 
 ## Use git ----
-usethis::use_git()
+usethis::use_github("https://github.com/jacksonschan/lzdm.git")
 
-## Init Testing Infrastructure ----
+ ## Init Testing Infrastructure ----
 ## Create a template for tests
 golem::use_recommended_tests()
 
