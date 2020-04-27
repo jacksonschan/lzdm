@@ -19,7 +19,7 @@ golem::fill_desc(
   pkg_description = "Tool to filter, rank, visualize Zip Codes in LA County based on a weighted set common criteria used to decide how desirable a Zip Code/Neighborhood is to live in.", # The Description of the package containing the App 
   author_first_name = "JACKSON", # Your First Name
   author_last_name = "CHAN", # Your Last Name
-  author_email = "JACKSON.CHAN15@GMAIL.COM", # Your Email
+  author_email = "jackson.chan15@gmail.com", # Your Email
   repo_url = "https://github.com/jacksonschan/lzdm" # The URL of the GitHub Repo (optional) 
 )     
 
@@ -35,7 +35,7 @@ usethis::use_lifecycle_badge( "Experimental" )
 usethis::use_news_md( open = FALSE )
 
 ## Use git ----
-usethis::use_github("https://github.com/jacksonschan/lzdm.git")
+usethis::use_git
 
  ## Init Testing Infrastructure ----
 ## Create a template for tests
@@ -47,7 +47,7 @@ golem::use_recommended_deps()
 ## Favicon ----
 # If you want to change the favicon (default is golem's one)
 golem::remove_favicon()
-golem::use_favicon() # path = "path/to/ico". Can be an online file. 
+golem::use_favicon() # path = "path/to/ico". Can  be an online file. 
 
 ## Add helper functions ----
 golem::use_utils_ui()

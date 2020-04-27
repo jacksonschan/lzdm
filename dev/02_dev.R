@@ -35,7 +35,7 @@ golem::add_css_file( "custom" )
 
 ## Add internal datasets ----
 ## If you have data in your package
-usethis::use_data_raw( name = "my_dataset", open = FALSE ) 
+usethis::use_data_raw( name="lzdm_dataset", open = FALSE) 
 
 ## Tests ----
 ## Add one line by test you want to create
@@ -49,7 +49,7 @@ devtools::build_vignettes()
 
 ## Code coverage ----
 ## (You'll need GitHub there)
-usethis::use_github()
+usethis::use_github(auth_token="7e9ebc31e2639b1c826f92e5063680cf9ef36436")
 usethis::use_travis()
 usethis::use_appveyor()
 

@@ -1,0 +1,12 @@
+name: lzdm_dev1
+title: lzdm_dev1
+username:
+account: jacksonschan
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2191422
+bundleId: 3069241
+url: https://jacksonschan.shinyapps.io/lzdm_dev1/
+when: 1587948231.5409
+asMultiple: FALSE
+asStatic: FALSE
