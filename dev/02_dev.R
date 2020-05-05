@@ -58,7 +58,7 @@ devtools::build_vignettes()
 
 ## Code coverage ----
 ## (You'll need GitHub there)
-usethis::use_github(auth_token="7e9ebc31e2639b1c826f92e5063680cf9ef36436")
+usethis::use_github()
 usethis::use_travis()
 usethis::use_appveyor()
 
