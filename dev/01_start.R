@@ -13,6 +13,7 @@
 
 ## Fill the DESCRIPTION ----
 ## Add meta data about your application
+
 golem::fill_desc(
   pkg_name = "lzdm", # The Name of the package containing the App 
   pkg_title = "LA County Zip Desirability Map", # The Title of the package containing the App 

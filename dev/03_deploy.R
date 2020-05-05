@@ -18,20 +18,25 @@
 devtools::check()
 rhub::check_for_cran()
 
+packageVersion("golem") == "0.2.1.9010"
+unlink("tests/testthat/test-golem-recommended.R")
+golem::use_recommended_tests()
+devtools::test()
+devtools::check()
 # Deploy
 
 ## RStudio ----
 ## If you want to deploy on RStudio related platforms
-golem::add_rstudioconnect_file()
+#golem::add_rstudioconnect_file()
 golem::add_shinyappsio_file()
-golem::add_shinyserver_file()
+#golem::add_shinyserver_file()
 
 ## Docker ----
 ## If you want to deploy via a generic Dockerfile
-golem::add_dockerfile()
+#golem::add_dockerfile()
 
 ## If you want to deploy to ShinyProxy
-golem::add_dockerfile_shinyproxy()
+#golem::add_dockerfile_shinyproxy()
 
 ## If you want to deploy to Heroku
-golem::add_dockerfile_heroku()
+#golem::add_dockerfile_heroku()
