@@ -13,8 +13,15 @@ app_ui <- function(request) {
     #fluidPage(
      # h1("lzdm"),
     bootstrapPage(
-      tags$style(type = "text/css", "html, body {width:100%;height:100%}"), 
-    mod_base_leaflet_ui("base_leaflet_ui_1") #base map moduel
+      tags$head(
+      tags$style(type = "text/css", "html, body {width:100%;height:100%}")
+      ) , ## html styles
+      
+      mod_base_leaflet_ui("base_leaflet_ui_1"), #base map moduel
+      
+      mod_zip_detail_panel_ui("zip_detail_panel_ui_1"), #zip detail panel
+      
+      mod_top_zipcodes_panel_ui("top_zipcodes_panel_ui_1") #top zip panel
    # )
   )
   )

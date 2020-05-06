@@ -5,9 +5,14 @@
 #' @import shiny
 #' @import leaflet
 #' @import sf
+#' @import htmltools
 #' @noRd
 app_server <- function( input, output, session ) {
   ## List the first level callModules here
-  #base map moduel
+  #base map module
   callModule(mod_base_leaflet_server, "base_leaflet_ui_1") 
+  #zip detail panel
+  callModule(mod_zip_detail_panel_server, "zip_detail_panel_ui_1")
+  #top zip panel
+  callModule(mod_top_zipcodes_panel_server, "top_zipcodes_panel_ui_1")
 }
