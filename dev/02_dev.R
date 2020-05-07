@@ -32,6 +32,7 @@ usethis::use_package( "htmltools" )
 golem::add_module( name = "base_leaflet" ) # Name of the module
 golem::add_module( name = "zip_detail_panel" )
 golem::add_module( name = "top_zipcodes_panel" )
+golem::add_module( name = "inputs_panel" )
 #golem::add_module( name = "name_of_module2" ) # Name of the module
 
 ## Add helper functions ----
@@ -44,7 +45,7 @@ golem::add_utils( "helpers" )
 ## Creates .js and .css files at inst/app/www
 golem::add_js_file( "script" )
 golem::add_js_handler( "handlers" )
-golem::add_css_file( "custom" )
+golem::add_css_file( "out_panels" )
 
 ## Add internal datasets ----
 ## If you have data in your package

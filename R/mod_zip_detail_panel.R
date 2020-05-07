@@ -11,14 +11,9 @@ mod_zip_detail_panel_ui <- function(id){
   ns <- NS(id)
   tagList(
     absolutePanel(
-      style = "background-color: grey"
-      , top = "auto"
-      , bottom = 10
-      , left = 20
-      , width = "48vw"
-      , height = "35vh"
-      , class = "panel panel-default" 
-     # , fixed = TRUE
+      id = "zip-detail"
+      , class = "out-panel" 
+      , fixed=TRUE
       , h2("Zip Detail")
       , textOutput(ns("ZipDetail"))
     )

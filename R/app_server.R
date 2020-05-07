@@ -15,4 +15,6 @@ app_server <- function( input, output, session ) {
   callModule(mod_zip_detail_panel_server, "zip_detail_panel_ui_1")
   #top zip panel
   callModule(mod_top_zipcodes_panel_server, "top_zipcodes_panel_ui_1")
+  #input panel
+  callModule(mod_inputs_panel_server, "inputs_panel_ui_1")
 }

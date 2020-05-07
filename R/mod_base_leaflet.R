@@ -11,7 +11,7 @@ mod_base_leaflet_ui <- function(id){
   ns <- NS(id)
   tagList(
  #   col_6(
-      leafletOutput(ns("generateMap"),width = "100%", height = "60%"
+      leafletOutput(ns("generateMap"),width = "100%", height = "65%"
                     ))
    # )
   
@@ -62,6 +62,8 @@ mod_base_leaflet_server <- function(input, output, session){
       addLegend(pal = pal, 
                 values = ~home_prices, 
                 opacity = 0.7, 
+                bins = 6,
+              #  className = "info legend leaf-legend",
                 title = htmltools::HTML("Home Prices <br> 
                                     by Zip Code <br>
                                     Q1 2020"),

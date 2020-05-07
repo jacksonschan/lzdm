@@ -1,0 +1,31 @@
+  #in-panel {
+      /* Appearance */
+      background-color: white;
+      left: 1.8%;
+      top: 13%;
+      width: 29%;
+      height: 32%;
+      cursor: move;
+      /* Fade out while not hovering */
+      opacity: 0.7;
+      zoom: 0.9;
+      transition: opacity 500ms 1s
+  } 
+  
+  .out-panel {
+    background-color:rgb(196, 196, 196);
+    margin: auto;
+    bottom: 2%;
+    width: 47.5%;
+    height: 31%;
+  } 
+  
+  #top-zips {
+    right: 1.8%;
+  }
+  
+  #zip-detail {
+    left: 1.8%;
+  }
+  
+  
