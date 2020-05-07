@@ -11,20 +11,16 @@ mod_top_zipcodes_panel_ui <- function(id){
   ns <- NS(id)
   tagList(
     absolutePanel(
-      style = "background-color: grey"
-      , top = "auto"
-      , bottom = 10
-      , right = 20
-      , width = "48vw"
-      , height = "35vh"
-      , class = "panel panel-default" 
-      # , fixed = TRUE
+      id = "top-zips"
+      , class = "out-panel" 
+      , fixed=TRUE
       , h2("Top 5 Zips")
       , textOutput(ns("TopZips"))
     )
   )
 }
     
+
 #' top_zipcodes_panel Server Function
 #'
 #' @noRd 

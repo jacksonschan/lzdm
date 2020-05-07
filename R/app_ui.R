@@ -19,6 +19,8 @@ app_ui <- function(request) {
       
       mod_base_leaflet_ui("base_leaflet_ui_1"), #base map moduel
       
+      mod_inputs_panel_ui("inputs_panel_ui_1"), #input panel
+      
       mod_zip_detail_panel_ui("zip_detail_panel_ui_1"), #zip detail panel
       
       mod_top_zipcodes_panel_ui("top_zipcodes_panel_ui_1") #top zip panel
