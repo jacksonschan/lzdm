@@ -14,10 +14,10 @@ mod_top_zipcodes_panel_ui <- function(id){
       id = "top-zips"
       , class = "out-panel" 
       , fixed=TRUE
-      , h2("Top 5 Zips")
-      , textOutput(ns("TopZips"))
+      , h2(class="out-header","Top 5 Zips")
+      , div(class="out-text",textOutput(ns("TopZips")))
+      )
     )
-  )
 }
     
 
@@ -26,7 +26,7 @@ mod_top_zipcodes_panel_ui <- function(id){
 #' @noRd 
 mod_top_zipcodes_panel_server <- function(input, output, session){
   ns <- session$ns
-  output$TopZips <- renderText({'lorem ipselum'})
+  output$TopZips <- renderText({'Lorem ipsum dolor sit amet, consecte- tur adipiscing elit, sed do eiusmod'})
 }
     
 ## To be copied in the UI
@@ -34,4 +34,3 @@ mod_top_zipcodes_panel_server <- function(input, output, session){
     
 ## To be copied in the server
 # callModule(mod_top_zipcodes_panel_server, "top_zipcodes_panel_ui_1")
- 

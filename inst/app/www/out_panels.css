@@ -1,11 +1,91 @@
-  #in-panel {
+  
+  h2 {
+    margin-left: 2.5% ; 
+    font-family: "Proxima Nova", "Helvetica Neue";
+  }
+  
+  h1 {
+   color: black;
+   margin-left: 2.5%;
+   margin-top: 1.2%;
+   font-family: "Open Sans","Proxima Nova", "Helvetica Neue";
+   font-size: 3vw;
+   margin-bottom: .5vh;
+   white-space: nowrap;
+   font-weight: bold
+ }
+ 
+ #title-text {
+   color: rgb(48,48,48);
+   margin-left: 2.5%;
+   font-size: 1.7vmin;
+   font-family: "Proxima Nova", "Helvetica Neue";
+ }
+ 
+  #input-header {
+    font-size: 2vw;
+    font-weight: 500;
+    margin-left: 2.5%;
+    font-family: "Proxima Nova", "Helvetica Neue";
+  }
+  
+  #demo {
+    margin-left: 2.5%;
+  }
+  
+   #in-text {
+    font-size: 1.5vmin;
+    color: rgb(80,80,80);
+    margin-left: 2.5%;
+    padding-bottom: 5%;
+    font-family: "Proxima Nova", "Helvetica Neue";
+  }
+
+    
+  .out-header {
+    color: rgb(60,60,60);
+    font-size: 2vw;
+    margin-left: 2.5%;
+    font-family: "Proxima Nova", "Helvetica Neue";
+  }  
+  
+  .out-text {
+    font-size: 1.5vmin;
+    color: white;
+    margin-left: 2.5%;
+    font-family: "Proxima Nova", "Helvetica Neue";
+  }
+  
+ #title-panel {
       /* Appearance */
       background-color: white;
       left: 1.8%;
-      top: 13%;
-      width: 29%;
-      height: 32%;
-      cursor: move;
+      top: 1%;
+      width: 42%;
+      height: 14%;
+      /* Fade out while not hovering */
+      opacity: 0.7;
+      zoom: 0.9;
+      transition: opacity 500ms 1s
+  } 
+  
+  #minimize-button {
+    font-size: .97vw;
+    width: 5%;
+    left: 25%;
+    top: 16.5%;
+    opacity: 0.6;
+    zoom: 0.9;
+    transition: opacity 500ms 1s
+  }
+  
+  #controls {
+      /* Appearance */
+      background-color: white;
+      left: 1.8%;
+      top: 16.5%;
+      width: 31%;
+      height: auto;
       /* Fade out while not hovering */
       opacity: 0.7;
       zoom: 0.9;
@@ -27,5 +107,4 @@
   #zip-detail {
     left: 1.8%;
   }
-  
   

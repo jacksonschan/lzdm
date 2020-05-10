@@ -13,20 +13,17 @@ app_ui <- function(request) {
     #fluidPage(
      # h1("lzdm"),
     bootstrapPage(
-      tags$head(
-      tags$style(type = "text/css", "html, body {width:100%;height:100%}")
-      ) , ## html styles
-      
+      HTML('<meta name="viewport" content="width=1024">'),
       mod_base_leaflet_ui("base_leaflet_ui_1"), #base map moduel
       
       mod_inputs_panel_ui("inputs_panel_ui_1"), #input panel
       
       mod_zip_detail_panel_ui("zip_detail_panel_ui_1"), #zip detail panel
       
-      mod_top_zipcodes_panel_ui("top_zipcodes_panel_ui_1") #top zip panel
+      mod_top_zipcodes_panel_ui("top_zipcodes_panel_ui_1"), #top zip panel
    # )
-  )
-  )
+      mod_title_panel_ui("title_panel_ui_1") #title panel
+  ))
 }
 
 #' Add external Resources to the Application
@@ -45,6 +42,10 @@ golem_add_external_resources <- function(){
  
   tags$head(
     favicon(),
+    tags$link(rel="stylesheet", type="text/css", href="www/out_panels.css"),  tags$link(
+      rel = "stylesheet", 
+      href="http://fonts.googleapis.com/css?family=Open+Sans"
+    ),
     bundle_resources(
       path = app_sys('app/www'),
       app_title = 'lzdm'

@@ -10,13 +10,23 @@
 mod_inputs_panel_ui <- function(id){
   ns <- NS(id)
   tagList(
-      absolutePanel(
-        id = "in-panel"
+      absolutePanel( #input panel
+        id = "controls"
         , class = "panel panel-default"
-        , fixed=TRUE
-        , h2("Inputs")
-        , p(textOutput(ns("InputPanel")))
+        , h2(id="input-header", "Inputs")
+        , tags$div(id='demo',
+                   class="collapse in"
+                   , div(id="in-text",textOutput(ns("InputPanel"))))
+      ),
+      absolutePanel( #adding seperate minimize button
+        id = "minimize-button"
+        , class = "panel panel-default"
+        , HTML('<button 
+                    data-toggle="collapse" 
+                    data-target="#demo">Collapse/Expand
+                    </button>')
       )
+      
   )
 }
     
@@ -27,6 +37,7 @@ mod_inputs_panel_server <- function(input, output, session){
   ns <- session$ns
   output$InputPanel <- renderText({'lorem ipselum'})
 }
+
     
 ## To be copied in the UI
 # mod_inputs_panel_ui("inputs_panel_ui_1")

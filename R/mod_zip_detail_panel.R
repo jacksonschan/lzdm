@@ -14,19 +14,18 @@ mod_zip_detail_panel_ui <- function(id){
       id = "zip-detail"
       , class = "out-panel" 
       , fixed=TRUE
-      , h2("Zip Detail")
-      , textOutput(ns("ZipDetail"))
+      , h2(class="out-header","Zip Detail")
+      , div(class="out-text",textOutput(ns("ZipDetail")))
     )
   )
 }
-    
 
 #' zip_detail_panel Server Function
 #'
 #' @noRd 
 mod_zip_detail_panel_server <- function(input, output, session){
   ns <- session$ns
-  output$ZipDetail <- renderText({'lorem ipselum'})
+  output$ZipDetail <- renderText({'See top 5 zipcodes only on map'})
 }
 
 ## To be copied in the UI
@@ -34,4 +33,3 @@ mod_zip_detail_panel_server <- function(input, output, session){
     
 ## To be copied in the server
 # callModule(mod_zip_detail_panel_server, "zip_detail_panel_ui_1")
- 

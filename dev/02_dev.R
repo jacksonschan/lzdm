@@ -33,6 +33,7 @@ golem::add_module( name = "base_leaflet" ) # Name of the module
 golem::add_module( name = "zip_detail_panel" )
 golem::add_module( name = "top_zipcodes_panel" )
 golem::add_module( name = "inputs_panel" )
+golem::add_module( name = "title_panel" )
 #golem::add_module( name = "name_of_module2" ) # Name of the module
 
 ## Add helper functions ----
@@ -43,8 +44,8 @@ golem::add_utils( "helpers" )
 
 ## External resources
 ## Creates .js and .css files at inst/app/www
-golem::add_js_file( "script" )
-golem::add_js_handler( "handlers" )
+#golem::add_js_file( "script" )
+#golem::add_js_handler( "handlers" )
 golem::add_css_file( "out_panels" )
 
 ## Add internal datasets ----
@@ -64,8 +65,8 @@ devtools::build_vignettes()
 ## Code coverage ----
 ## (You'll need GitHub there)
 usethis::use_github()
-usethis::use_travis()
-usethis::use_appveyor()
+#usethis::use_travis()
+#usethis::use_appveyor()
 
 # You're now set! ----
 # go to dev/03_deploy.R

@@ -10,6 +10,9 @@
 mod_base_leaflet_ui <- function(id){
   ns <- NS(id)
   tagList(
+    tags$head(
+      tags$style(type = "text/css", "html, body {width:100%;height:100%}")
+    ) , ## html styles
  #   col_6(
       leafletOutput(ns("generateMap"),width = "100%", height = "65%"
                     ))
@@ -25,7 +28,8 @@ mod_base_leaflet_server <- function(input, output, session){
   output$generateMap <- renderLeaflet({
     # generate base leaflet
     lac_zctas_data %>%
-      leaflet %>% 
+      leaflet(options = leafletOptions(zoomControl = FALSE)) %>%
+      htmlwidgets::onRender("function(el, x) {L.control.zoom({ position: 'topright' }).addTo(this)}")  %>%
       # add base map
       addProviderTiles("CartoDB") %>%
       # set default map psoition

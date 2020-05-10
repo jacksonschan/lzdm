@@ -17,4 +17,6 @@ app_server <- function( input, output, session ) {
   callModule(mod_top_zipcodes_panel_server, "top_zipcodes_panel_ui_1")
   #input panel
   callModule(mod_inputs_panel_server, "inputs_panel_ui_1")
+  #title panel
+  callModule(mod_title_panel_server, "title_panel_ui_1")
 }
