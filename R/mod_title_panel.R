@@ -14,8 +14,9 @@ mod_title_panel_ui <- function(id){
       id = "title-panel"
       , class = "panel panel-default"
       , fixed=TRUE
-      , h1("LA County Zip Desirability Map")
-      , div(id="title-text",class="body-text",textOutput(ns("TitlePanel")))
+      , div(id="title-text",class="body-text",
+            h1("LA County Desirability Map"),
+            textOutput(ns("TitlePanel")))
     )
   )
 }
@@ -25,7 +26,7 @@ mod_title_panel_ui <- function(id){
 #' @noRd 
 mod_title_panel_server <- function(input, output, session){
   ns <- session$ns
-  output$TitlePanel <- renderText({'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi- dunt labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercita-'})
+  output$TitlePanel <- renderText({'Zorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi- dunt labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercita-'})
 }
     
 ## To be copied in the UI

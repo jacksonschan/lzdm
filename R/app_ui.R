@@ -13,7 +13,7 @@ app_ui <- function(request) {
     #fluidPage(
      # h1("lzdm"),
     bootstrapPage(
-      HTML('<meta name="viewport" content="width=1024">'),
+
       mod_base_leaflet_ui("base_leaflet_ui_1"), #base map moduel
       
       mod_inputs_panel_ui("inputs_panel_ui_1"), #input panel

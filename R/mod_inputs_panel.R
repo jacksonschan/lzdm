@@ -16,7 +16,14 @@ mod_inputs_panel_ui <- function(id){
         , h2(id="input-header", "Inputs")
         , tags$div(id='demo',
                    class="collapse in"
-                   , div(id="in-text",textOutput(ns("InputPanel"))))
+                   , div(id="in-text"
+                         ,textOutput(ns("InputPanel"))
+                         ,mod_user_inputs_ui(ns("HomePrices"))
+                        )
+                   
+                   )
+        ### ZHVI price slider
+
       ),
       absolutePanel( #adding seperate minimize button
         id = "minimize-button"
@@ -35,7 +42,8 @@ mod_inputs_panel_ui <- function(id){
 #' @noRd 
 mod_inputs_panel_server <- function(input, output, session){
   ns <- session$ns
-  output$InputPanel <- renderText({'lorem ipselum'})
+  output$InputPanel <- renderText({'Zorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi'})
+  callModule(mod_user_inputs_server, "user_inputs_ui_1")
 }
 
     
