@@ -39,9 +39,9 @@
   
    #in-text {
     font-size: 1.75vmin;
+    padding-bottom: 3%;
     color: rgb(80,80,80);
     max-width: 95%;
-    padding-bottom: 5%;
     font-family: "Proxima Nova", "Helvetica Neue";
   }
 
@@ -60,25 +60,25 @@
     font-family: "Proxima Nova", "Helvetica Neue";
   }
   
- #title-panel {
-      /* Appearance */
+/* #title-panel {
+      
       background-color: white;
       left: 1.8%;
       top: 1%;
       width: auto;
       max-width: 45%;
       height: auto;
-      /* Fade out while not hovering */
+      
       opacity: 0.7;
       zoom: 0.9;
       transition: opacity 500ms 1s
-  } 
+  } */
   
   #minimize-button {
     font-size: .97vw;
     width: auto;
-    right: 67.18%;
-    top: 16.5%;
+    right: 66.18%;
+    top: 2%;
     opacity: 0.6;
     zoom: 0.9;
     transition: opacity 500ms 1s
@@ -88,8 +88,8 @@
       /* Appearance */
       background-color: white;
       left: 1.8%;
-      top: 16.5%;
-      width: 31%;
+      top: 1.5%;
+      width: 32%;
       height: auto;
       /* Fade out while not hovering */
       opacity: 0.7;
@@ -97,11 +97,25 @@
       transition: opacity 500ms 1s
   } 
   
+  #submit {
+    padding-top: 2%;
+    padding-bottom: 5%;
+  }
+  
+.leaflet-right .leaflet-control {
+    margin-right: 10%;
+}
+
+.leaflet-bottom .leaflet-control {
+    margin-bottom: 5%;
+    bottom: 33vh;
+}
+        
+  
   .user-input {
     padding-top: 3%;
-    max-width: 60%;
-    
   }
+  
   .out-panel {
     background-color:rgb(196, 196, 196);
     margin: auto;

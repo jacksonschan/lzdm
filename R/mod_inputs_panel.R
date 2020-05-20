@@ -16,9 +16,9 @@ mod_inputs_panel_ui <- function(id){
         , h2(id="input-header", "Inputs")
         , tags$div(id='demo',
                    class="collapse in"
-                   , div(id="in-text"
-                         ,textOutput(ns("InputPanel"))
-                         ,mod_user_inputs_ui(ns("HomePrices"))
+                   , div(
+                         div(id="in-text",textOutput(ns("InputPanel")))
+                         , mod_user_inputs_ui(ns("HomePrices"))
                         )
                    
                    )
