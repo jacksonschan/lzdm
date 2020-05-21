@@ -1,4 +1,9 @@
   
+  h4 {
+    font-family: "Proxima Nova", "Helvetica Neue";
+    line-height: 80%;
+  }
+  
   h2 {
     margin-left: 2.5% ; 
     font-family: "Proxima Nova", "Helvetica Neue";
@@ -15,15 +20,6 @@
    font-weight: bold
  }
  
- #title-text {
-   color: rgb(48,48,48);
-   margin-left: 2.5%;
-   max-width: 95%;
-   overflow-wrap: anywhere;
-   font-size: 1.75vmin;
-   padding-bottom: 3%;
-   font-family: "Proxima Nova", "Helvetica Neue";
- }
  
   #input-header {
     font-size: 2vw;
@@ -60,25 +56,12 @@
     font-family: "Proxima Nova", "Helvetica Neue";
   }
   
-/* #title-panel {
-      
-      background-color: white;
-      left: 1.8%;
-      top: 1%;
-      width: auto;
-      max-width: 45%;
-      height: auto;
-      
-      opacity: 0.7;
-      zoom: 0.9;
-      transition: opacity 500ms 1s
-  } */
-  
+
   #minimize-button {
     font-size: .97vw;
     width: auto;
     right: 66.18%;
-    top: 2%;
+    top: 1.5%;
     opacity: 0.6;
     zoom: 0.9;
     transition: opacity 500ms 1s
@@ -94,7 +77,6 @@
       /* Fade out while not hovering */
       opacity: 0.7;
       zoom: 0.9;
-      transition: opacity 500ms 1s
   } 
   
   #submit {
@@ -132,3 +114,44 @@
     left: 1.8%;
   }
   
+  #metric-panel {
+    left: 35%;
+    margin-bottom: 5%;
+    top: 1.5%;
+    height: auto;
+    width: 15%;
+    background-color: white; 
+    /*background-color: transparent; 
+    border-color: transparent; */
+    opacity: 0.7;
+    zoom: 0.9;
+    transition: opacity 5s;
+  }
+  
+  #metric-select {
+    padding: 3% 4% 0% 4%;
+    }
+    
+   /* #title-panel {
+      
+      background-color: white;
+      left: 1.8%;
+      top: 1%;
+      width: auto;
+      max-width: 45%;
+      height: auto;
+      
+      opacity: 0.7;
+      zoom: 0.9;
+      transition: opacity 500ms 1s
+  } */
+  
+ /*#title-text {
+   color: rgb(48,48,48);
+   margin-left: 2.5%;
+   max-width: 95%;
+   overflow-wrap: anywhere;
+   font-size: 1.75vmin;
+   padding-bottom: 3%;
+   font-family: "Proxima Nova", "Helvetica Neue";
+ }*/

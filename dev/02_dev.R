@@ -35,6 +35,7 @@ golem::add_module( name = "top_zipcodes_panel" )
 golem::add_module( name = "inputs_panel" )
 golem::add_module( name = "user_inputs" )
 golem::add_module( name = "title_panel" )
+golem::add_module( name = "metric_selection" )
 #golem::add_module( name = "name_of_module2" ) # Name of the module
 
 ## Add helper functions ----
