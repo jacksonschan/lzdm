@@ -26,9 +26,14 @@ mod_metric_selection_ui <- function(id){
 #' metric_selection Server Function
 #'
 #' @noRd 
-mod_metric_selection_server <- function(input, output, session){
+mod_metric_selection_server <- function(input, output, session, r){
   ns <- session$ns
-  output$MetricSelect <- input$MetricSelect
+  
+  r$metric_selection_server <- reactiveValues()
+  
+  observeEvent( input$MetricSelect , {
+    r$metric_selection_server$MetricSelect <- input$MetricSelect
+  })
 }
     
 ## To be copied in the UI

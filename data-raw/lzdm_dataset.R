@@ -25,6 +25,11 @@ d1 <- d %>%
   rename(zip_code = RegionName) %>%
   mutate(zip_code = as.factor(zip_code), home_prices = as.numeric(home_prices)) 
 
+#dummy data
+d1$household_income <- round(runif(nrow(d1),10000,5000000),0)
+d1$education <- round(runif(nrow(d1),1,100),0)
+d1$safety <- round(runif(nrow(d1),1,100),0)
+
 ### load zip boundaries from tigris package
 lac_zctas_data <- zctas(cb = TRUE, starts_with = d1$zip_code)
 

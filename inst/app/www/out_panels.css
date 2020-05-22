@@ -123,9 +123,8 @@
     background-color: white; 
     /*background-color: transparent; 
     border-color: transparent; */
-    opacity: 0.7;
+    opacity: 0.8;
     zoom: 0.9;
-    transition: opacity 5s;
   }
   
   #metric-select {
