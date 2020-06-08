@@ -29,7 +29,7 @@ mod_metric_selection_ui <- function(id){
 mod_metric_selection_server <- function(input, output, session, r){
   ns <- session$ns
   
-  r$metric_selection_server <- reactiveValues()
+ # r$metric_selection_server <- reactiveValues()
   
   observeEvent( input$MetricSelect , {
     r$metric_selection_server$MetricSelect <- input$MetricSelect

@@ -26,6 +26,46 @@ mod_base_leaflet_ui <- function(id){
 mod_base_leaflet_server <- function(input, output, session, r){
   ns <- session$ns
   
+  dataInput <- reactive({
+    
+    filtered <- lac_zctas_data[
+      lac_zctas_data@data$home_prices >= r$user_inputs_server$HomePrices[1] 
+      & lac_zctas_data@data$home_prices <= r$user_inputs_server$HomePrices[2]
+      & lac_zctas_data@data$household_income >= r$user_inputs_server$HouseholdIncome[1]
+      & lac_zctas_data@data$household_income <= r$user_inputs_server$HouseholdIncome[2]
+      & lac_zctas_data@data$education >= r$user_inputs_server$Education[1]
+      & lac_zctas_data@data$safety >= r$user_inputs_server$Crime[1],
+      ]
+    lac_zctas_data <- filtered
+    lac_zctas_data
+  })
+  
+  colorpal <- 
+    reactive({
+      d <- dataInput()
+      metric <- as.numeric(r$metric_selection_server$MetricSelect)
+      metric_data <- metric + 6
+      metric_palette <- c("Greens" , "Purples", "Blues", "Reds")
+      colorNumeric(palette = metric_palette[metric], #colour palatte
+                   #palette = "Greens",
+                   domain = d@data[,metric_data]) #data for bins
+    })
+  
+  
+  labels <- reactive({ 
+    d <- dataInput() 
+    metric <- as.numeric(r$metric_selection_server$MetricSelect)
+    metric_data <- metric + 6
+    metric_palette <- c("Home Prices: " , "Household Income: ", "Education: ", "Safety: ")
+    paste0(
+      "Zip Code: ",
+      d@data$GEOID10, "<br/>",
+      metric_palette[metric],
+      if(metric %in% c(1,2)){scales::dollar(d@data[,metric_data])}
+      else if(metric == 3){scales::number(d@data[,metric_data],prefix="#")}
+      else if(metric == 4){scales::number(d@data[,metric_data], suffix="%")}
+    ) %>%
+      lapply(htmltools::HTML) })
   output$generateMap <- renderLeaflet({
     # generate base leaflet
     lac_zctas_data %>%
@@ -39,38 +79,18 @@ mod_base_leaflet_server <- function(input, output, session, r){
 
   })
   
-  colorpal <- 
-    reactive({
-      metric <- as.numeric(r$metric_selection_server$MetricSelect)
-      metric_data <- metric + 6
-      metric_palette <- c("Greens" , "Purples", "Blues", "Reds")
-      colorNumeric(palette = metric_palette[metric], #colour palatte
-                   domain = lac_zctas_data@data[metric_data]) #data for bins
-    })
   
-  
-  labels <- reactive({ 
-    metric <- as.numeric(r$metric_selection_server$MetricSelect)
-    metric_data <- metric + 6
-    metric_palette <- c("Home Prices: " , "Household Income: ", "Education: ", "Safety: ")
-    paste0(
-      "Zip Code: ",
-      lac_zctas_data@data$GEOID10, "<br/>",
-      metric_palette[metric],
-      if(metric %in% c(1,2)){scales::dollar(lac_zctas_data@data[[metric_data]])}
-      else{scales::percent(lac_zctas_data@data[[metric_data]])}
-      ) %>%
-      lapply(htmltools::HTML) })
   
   #add Polygon layer with reactive color/sorting
   observe({
+    d <- dataInput()
     pal <- colorpal()
     labels <- labels()
     metric <- as.numeric(r$metric_selection_server$MetricSelect)
     metric_data <- metric + 6
-    leafletProxy("generateMap", data = lac_zctas_data) %>%
+    leafletProxy("generateMap", data = d) %>%
       clearShapes() %>%
-      addPolygons(fillColor = ~pal(lac_zctas_data@data[[metric_data]]),
+      addPolygons(fillColor = ~pal(d@data[,metric_data]),
                   weight = 2,
                   opacity = 1,
                   color = "white",
@@ -86,14 +106,15 @@ mod_base_leaflet_server <- function(input, output, session, r){
   
   ## observer for legend
   observe({
+    d <- dataInput() 
     pal <- colorpal()
     metric <- as.numeric(r$metric_selection_server$MetricSelect)
     metric_data <- metric + 6
     metric_palette <- c("Home Prices", "Household Income", "Education", "Safety")
-    leafletProxy("generateMap", data = lac_zctas_data) %>%
+    leafletProxy("generateMap", data = d) %>%
       clearControls() %>%
       addLegend(pal = pal, 
-                values = lac_zctas_data@data[[metric_data]], 
+                values = d@data[,metric_data], 
                 opacity = 0.7, 
                 bins = 6,
               #  className = "info legend leaf-legend",
