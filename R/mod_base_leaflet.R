@@ -33,8 +33,8 @@ mod_base_leaflet_server <- function(input, output, session, r){
       & lac_zctas_data@data$home_prices <= r$user_inputs_server$HomePrices[2]
       & lac_zctas_data@data$household_income >= r$user_inputs_server$HouseholdIncome[1]
       & lac_zctas_data@data$household_income <= r$user_inputs_server$HouseholdIncome[2]
-      & lac_zctas_data@data$education >= r$user_inputs_server$Education[1]
-      & lac_zctas_data@data$safety >= r$user_inputs_server$Crime[1],
+      & lac_zctas_data@data$education <= r$user_inputs_server$Education[1]
+      & lac_zctas_data@data$safety <= r$user_inputs_server$Crime[1],
       ]
     lac_zctas_data <- filtered
     lac_zctas_data
@@ -58,6 +58,8 @@ mod_base_leaflet_server <- function(input, output, session, r){
     metric_data <- metric + 6
     metric_palette <- c("Home Prices: " , "Household Income: ", "Education: ", "Safety: ")
     paste0(
+      d@data$name,
+      "<br/>",
       "Zip Code: ",
       d@data$GEOID10, "<br/>",
       metric_palette[metric],
@@ -116,7 +118,7 @@ mod_base_leaflet_server <- function(input, output, session, r){
       addLegend(pal = pal, 
                 values = d@data[,metric_data], 
                 opacity = 0.7, 
-                bins = 6,
+                bins = 7,
               #  className = "info legend leaf-legend",
                 title = metric_palette[metric],
                 position = "bottomright")

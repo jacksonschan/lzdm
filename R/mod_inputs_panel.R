@@ -25,9 +25,9 @@ mod_inputs_panel_ui <- function(id){
                                       inputId = ns("HomePrices"),
                                       label = "Median Home Price ($)",
                                       min = 0,
-                                      max = 6000000,
+                                      max = 5000000,
                                       pre = "$",
-                                      value = c(0,6000000), 
+                                      value = c(0,2000000), 
                                       step = 100000,
                                       width = "100%"
                                     ))
@@ -109,18 +109,19 @@ mod_inputs_panel_server <- function(input, output, session,r){
   
   observeEvent(input$Submit,
                {r$user_inputs_server$HomePrices <- input$HomePrices
-               })
+               }, ignoreNULL = FALSE)
+  
    observeEvent(input$Submit, {
      r$user_inputs_server$HouseholdIncome <- input$HouseholdIncome
-   })
+   }, ignoreNULL = FALSE)
   #   
      observeEvent(input$Submit, {
        r$user_inputs_server$Education <- input$Education
-     })
+     }, ignoreNULL = FALSE)
   #   
      observeEvent(input$Submit, {
        r$user_inputs_server$Crime <- input$Crime
-     })
+     }, ignoreNULL = FALSE)
   # 
 }
 
