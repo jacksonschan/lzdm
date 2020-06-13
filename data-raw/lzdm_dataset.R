@@ -41,7 +41,7 @@ lac_zctas_data <- geo_join(lac_zctas_data,
                            by_df = "zip_code",
                            how = "inner")
 
-## load zip code name mapping table 
+## load la county zip code name mapping table 
 p <- pdf_text("http://file.lacounty.gov/SDSInter/lac/1031552_MasterZipCodes.pdf") %>% 
   readr::read_lines()
 
@@ -65,11 +65,22 @@ pf <- pt %>%
 # get rid of junk lines after split
 df <- data.frame("zip_code" = pf[,1], "name" = pf[,2])
 df$zip_code <- lapply(df$zip_code, function(x) as.numeric(as.character(x)))
-df <- df[!is.na(df$zip_code),]
+la_df <- df[!is.na(df$zip_code),]
+
+## load oc zip code names
+oc.d <- read_csv("https://enjoyorangecounty.com/wp-content/uploads/2018/05/zip-codes-in-orange-county.csv")
+
+oc.d$`ZIP Code` <- stringr::str_remove_all(oc.d$`ZIP Code`,"ZIP Code ")
+
+oc_df <- data.frame("zip_code" = oc.d$`ZIP Code`, "name" = oc.d$City)
+
+## union la and oc zip code names
+dff <- rbind(la_df,oc_df)
+dff <- dff[is.na(df$name)==FALSE,]
 
 ## join data to zip code names
 lac_zctas_data <- geo_join(lac_zctas_data, 
-                           df, 
+                           dff, 
                            by_sp = "GEOID10", 
                            by_df = "zip_code",
                            how = "left")
