@@ -17,7 +17,7 @@ mod_metric_selection_ui <- function(id){
       , selectInput(
         ns("MetricSelect")
         , label = h4("Select Map Metric")
-        , choices = list("Median Home Price" = 1, "Household Income" = 2, "Education" = 3, "Safety" = 4), 
+        , choices = list("Median Home Price" = 1,  "Education" = 2, "Safety" = 3, "Household Income" = 4), 
                   selected = 1)),
       )
   )

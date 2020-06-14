@@ -37,19 +37,6 @@ mod_inputs_panel_ui <- function(id){
                            fluidRow(
                              column(11,
                                     sliderInput(
-                                      ns("HouseholdIncome"),
-                                      label = "Median Household Income ($K)",
-                                      min = 10000,
-                                      max = 5000000,
-                                      pre = "$",
-                                      value = c(10000,5000000),
-                                      step = 10000,
-                                      width = "100%"))
-                           ),
-                           
-                           fluidRow(
-                             column(11,
-                                    sliderInput(
                                       ns("Education"),
                                       label = "Ranking of Top High School",
                                       min = 1,
@@ -71,6 +58,19 @@ mod_inputs_panel_ui <- function(id){
                                       step = 5,
                                       width = "100%"))
                            ),
+                           
+                           #   fluidRow(
+                           #   column(11,
+                           #          sliderInput(
+                           #            ns("HouseholdIncome"),
+                           #            label = "Median Household Income",
+                           #            min = 10000,
+                           #            max = 5000000,
+                           #            pre = "$",
+                           #            value = c(10000,5000000),
+                           #            step = 10000,
+                           #            width = "100%"))
+                           # ),
                            
                            div(id = "submit",
                                fluidRow(
@@ -111,9 +111,9 @@ mod_inputs_panel_server <- function(input, output, session,r){
                {r$user_inputs_server$HomePrices <- input$HomePrices
                }, ignoreNULL = FALSE)
   
-   observeEvent(input$Submit, {
-     r$user_inputs_server$HouseholdIncome <- input$HouseholdIncome
-   }, ignoreNULL = FALSE)
+   # observeEvent(input$Submit, {
+   #   r$user_inputs_server$HouseholdIncome <- input$HouseholdIncome
+   # }, ignoreNULL = FALSE)
   #   
      observeEvent(input$Submit, {
        r$user_inputs_server$Education <- input$Education
