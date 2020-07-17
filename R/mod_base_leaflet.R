@@ -19,7 +19,7 @@ mod_base_leaflet_ui <- function(id){
    # )
   
 }
-    
+
 #' base_leaflet Server Function
 #'
 #' @noRd 
@@ -27,15 +27,15 @@ mod_base_leaflet_server <- function(input, output, session, r){
   ns <- session$ns
   
   dataInput <- reactive({
-    
+    #r$user_inputs_server$HomePrices[1] 
     filtered <- lac_zctas_data[
       lac_zctas_data@data$home_prices >= r$user_inputs_server$HomePrices[1] 
       & lac_zctas_data@data$home_prices <= r$user_inputs_server$HomePrices[2]
-      # & lac_zctas_data@data$household_income >= r$user_inputs_server$HouseholdIncome[1]
-      # & lac_zctas_data@data$household_income <= r$user_inputs_server$HouseholdIncome[2]
-      & lac_zctas_data@data$education <= r$user_inputs_server$Education[1]
-      & lac_zctas_data@data$safety <= r$user_inputs_server$Crime[1],
-      ]
+       # & lac_zctas_data@data$household_income >= r$user_inputs_server$HouseholdIncome[1]
+       # & lac_zctas_data@data$household_income <= r$user_inputs_server$HouseholdIncome[2]
+       # & lac_zctas_data@data$education <= r$user_inputs_server$Education[1]
+       # & lac_zctas_data@data$safety <= r$user_inputs_server$Crime[1],
+      , ]
     lac_zctas_data <- filtered
     lac_zctas_data
   })
@@ -43,20 +43,23 @@ mod_base_leaflet_server <- function(input, output, session, r){
   colorpal <- 
     reactive({
       d <- dataInput()
-      metric <- as.numeric(r$metric_selection_server$MetricSelect)
+    #  metric <- as.numeric(r$metric_selection_server$MetricSelect)
+      metric <- 1
       metric_data <- metric + 6
       metric_palette <- c("Greens" , "Purples", "Reds", "Blues")
-      colorNumeric(palette = metric_palette[metric], #colour palatte
+      colorNumeric( metric_palette[metric], #colour palatte
                    #palette = "Greens",
-                   domain = d@data[,metric_data]) #data for bins
+                   domain = d@data[,metric_data
+                                   ]) #data for bins
     })
   
   
   labels <- reactive({ 
     d <- dataInput() 
-    metric <- as.numeric(r$metric_selection_server$MetricSelect)
+    #metric <- as.numeric(r$metric_selection_server$MetricSelect)
+    metric <- 1
     metric_data <- metric + 6
-    metric_palette <- c("Home Prices: " , "Household Income: ", "Education: ", "Safety: ")
+    metric_palette <- c("Home Prices: ", "Household Income: ", "Education: ", "Safety: ")
     paste0(
       d@data$name,
       "<br/>",
@@ -88,11 +91,12 @@ mod_base_leaflet_server <- function(input, output, session, r){
     d <- dataInput()
     pal <- colorpal()
     labels <- labels()
-    metric <- as.numeric(r$metric_selection_server$MetricSelect)
+    metric <- 1#as.numeric(r$metric_selection_server$MetricSelect)
     metric_data <- metric + 6
     leafletProxy("generateMap", data = d) %>%
       clearShapes() %>%
-      addPolygons(fillColor = ~pal(d@data[,metric_data]),
+      addPolygons(fillColor = ~pal(d@data[,metric_data]), 
+                  layerId = ~GEOID10,
                   weight = 2,
                   opacity = 1,
                   color = "white",
@@ -110,7 +114,7 @@ mod_base_leaflet_server <- function(input, output, session, r){
   observe({
     d <- dataInput() 
     pal <- colorpal()
-    metric <- as.numeric(r$metric_selection_server$MetricSelect)
+    metric <- 1#as.numeric(r$metric_selection_server$MetricSelect)
     metric_data <- metric + 6
     metric_palette <- c("Home Prices", "Household Income", "Education", "Safety")
     leafletProxy("generateMap", data = d) %>%
@@ -123,7 +127,15 @@ mod_base_leaflet_server <- function(input, output, session, r){
                 title = metric_palette[metric],
                 position = "bottomright")
   })
+  
+  observeEvent(input$generateMap_shape_click,
+               {r$mod_base_leaflet$shape_click <- input$generateMap_shape_click$id
+               }, ignoreNULL = FALSE)
 }
+
+## observer for legend
+
+
     
 ## To be copied in the UI
 # mod_base_leaflet_ui("base_leaflet_ui_1")

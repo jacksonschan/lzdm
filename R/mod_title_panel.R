@@ -26,7 +26,7 @@ mod_title_panel_ui <- function(id){
 #' @noRd 
 mod_title_panel_server <- function(input, output, session){
   ns <- session$ns
-  output$TitlePanel <- renderText({'Zorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi- dunt labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercita-'})
+  output$TitlePanel <- renderText({'Filter zip codes with the Inputs Panel below and click on a zip on the map to see more details about the neighborhood'})
 }
     
 ## To be copied in the UI

@@ -116,6 +116,10 @@
     font-family: "Proxima Nova", "Helvetica Neue";
   }  
   
+  #table-header {
+    margin-left: 5%;
+  }
+  
   .out-text {
     font-size: 1.75vmin;
     color: white;

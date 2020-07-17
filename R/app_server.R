@@ -13,13 +13,13 @@ app_server <- function( input, output, session ) {
   # user inputs
   #callModule(mod_user_inputs_server, "user_inputs_ui_1",r)
   # metric selection module
-  callModule(mod_metric_selection_server, "metric_selection_ui_1",r)
+ # callModule(mod_metric_selection_server, "metric_selection_ui_1",r)
   #input panel
   callModule(mod_inputs_panel_server, "inputs_panel_ui_1",r)
   #base map module
   callModule(mod_base_leaflet_server, "base_leaflet_ui_1",r) 
   #zip detail panel
-  callModule(mod_zip_detail_panel_server, "zip_detail_panel_ui_1")
+  callModule(mod_zip_detail_panel_server, "zip_detail_panel_ui_1",r)
   #top zip panel
   callModule(mod_top_zipcodes_panel_server, "top_zipcodes_panel_ui_1")
   

@@ -14,7 +14,7 @@ mod_top_zipcodes_panel_ui <- function(id){
       id = "top-zips"
       , class = "out-panel" 
       , fixed=TRUE
-      , h2(class="out-header","Top 5 Zips")
+      , h2(class="out-header", id="table-header", "Zip Table")
       , div(class="out-text",textOutput(ns("TopZips")))
       )
     )
@@ -26,7 +26,7 @@ mod_top_zipcodes_panel_ui <- function(id){
 #' @noRd 
 mod_top_zipcodes_panel_server <- function(input, output, session){
   ns <- session$ns
-  output$TopZips <- renderText({'Lorem ipsum dolor sit amet, consecte- tur adipiscing elit, sed do eiusmod'})
+  output$TopZips <- renderText({})
 }
     
 ## To be copied in the UI

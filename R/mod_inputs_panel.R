@@ -13,7 +13,7 @@ mod_inputs_panel_ui <- function(id){
       absolutePanel( #input panel
         id = "controls"
         , class = "panel panel-default"
-        , h2(id="input-header", "Inputs")
+        , h2(id="input-header", "LA County Zip Explorer")
         , tags$div(id='demo',
                    class="collapse in"
                    , div(
@@ -32,46 +32,46 @@ mod_inputs_panel_ui <- function(id){
                                       width = "100%"
                                     ))
                            )
-                           ,
-                           
-                           fluidRow(
-                             column(11,
-                                    sliderInput(
-                                      ns("Education"),
-                                      label = "Ranking of Top High School",
-                                      min = 1,
-                                      max = 100,
-                                      value = c(50),
-                                      step = 5,
-                                      width = "100%"))
-                           ),
-                           
-                           fluidRow(
-                             column(11,
-                                    sliderInput(
-                                      ns("Crime"),
-                                      label = "Safety Percentile (Safer Than X% of Zips) ",
-                                      min = 1,
-                                      max = 100,
-                                      post = "%",
-                                      value = c(50),
-                                      step = 5,
-                                      width = "100%"))
-                           ),
-                           
-                           #   fluidRow(
+                            ,
+                           # 
+                           # fluidRow(
                            #   column(11,
                            #          sliderInput(
-                           #            ns("HouseholdIncome"),
-                           #            label = "Median Household Income",
-                           #            min = 10000,
-                           #            max = 5000000,
-                           #            pre = "$",
-                           #            value = c(10000,5000000),
-                           #            step = 10000,
+                           #            ns("Education"),
+                           #            label = "Ranking of Top High School",
+                           #            min = 1,
+                           #            max = 100,
+                           #            value = c(50),
+                           #            step = 5,
                            #            width = "100%"))
                            # ),
-                           
+                           # 
+                           # fluidRow(
+                           #   column(11,
+                           #          sliderInput(
+                           #            ns("Crime"),
+                           #            label = "Safety Percentile (Safer Than X% of Zips) ",
+                           #            min = 1,
+                           #            max = 100,
+                           #            post = "%",
+                           #            value = c(50),
+                           #            step = 5,
+                           #            width = "100%"))
+                           # ),
+                           # 
+                           # #   fluidRow(
+                           # #   column(11,
+                           # #          sliderInput(
+                           # #            ns("HouseholdIncome"),
+                           # #            label = "Median Household Income",
+                           # #            min = 10000,
+                           # #            max = 5000000,
+                           # #            pre = "$",
+                           # #            value = c(10000,5000000),
+                           # #            step = 10000,
+                           # #            width = "100%"))
+                           # # ),
+                           # 
                            div(id = "submit",
                                fluidRow(
                                  column(6,offset=3,
@@ -105,7 +105,7 @@ mod_inputs_panel_ui <- function(id){
 #' @noRd 
 mod_inputs_panel_server <- function(input, output, session,r){
   ns <- session$ns
-  output$InputPanel <- renderText({'Zorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi'})
+  output$InputPanel <- renderText({'Adjust the filters below to your desired values and click "Submit" to update the map:'})
   
   observeEvent(input$Submit,
                {r$user_inputs_server$HomePrices <- input$HomePrices
@@ -115,15 +115,15 @@ mod_inputs_panel_server <- function(input, output, session,r){
    #   r$user_inputs_server$HouseholdIncome <- input$HouseholdIncome
    # }, ignoreNULL = FALSE)
   #   
-     observeEvent(input$Submit, {
-       r$user_inputs_server$Education <- input$Education
-     }, ignoreNULL = FALSE)
-  #   
-     observeEvent(input$Submit, {
-       r$user_inputs_server$Crime <- input$Crime
-     }, ignoreNULL = FALSE)
-  # 
-}
+#      observeEvent(input$Submit, {
+#        r$user_inputs_server$Education <- input$Education
+#      }, ignoreNULL = FALSE)
+#   #   
+#      observeEvent(input$Submit, {
+#        r$user_inputs_server$Crime <- input$Crime
+#      }, ignoreNULL = FALSE)
+#   # 
+ }
 
     
 ## To be copied in the UI
