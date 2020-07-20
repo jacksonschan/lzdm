@@ -48,14 +48,14 @@ mod_zip_detail_panel_server <- function(input, output, session,r){
   
   click_data <- reactive({
     l <- link()
-    dclick <- lac_zctas_data@data[lac_zctas_data@data$GEOID10==l,]
+    dclick <- zip_dataset@data[zip_dataset@data$GEOID10==l,]
     dclick
   })
   
   rank_data <- reactive({
     
     l <- link()
-    pop <- lac_zctas_data@data %>%
+    pop <- zip_dataset@data %>%
     dplyr::filter(.,home_prices >= r$user_inputs_server$HomePrices[1], home_prices <= r$user_inputs_server$HomePrices[2]) %>%
       dplyr::select(.,GEOID10,home_prices) %>%
       dplyr::mutate(

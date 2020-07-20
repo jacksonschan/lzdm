@@ -26,6 +26,9 @@ usethis::use_package( "tigris" )
 usethis::use_package( "leaflet" )
 usethis::use_package( "rgdal" )
 usethis::use_package( "htmltools" )
+usethis::use_package( "DT" )
+usethis::use_package( "scales" )
+
 
 ## Add modules ----
 ## Create a module infrastructure in R/
