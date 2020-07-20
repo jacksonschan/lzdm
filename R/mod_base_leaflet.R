@@ -7,6 +7,8 @@
 #' @noRd 
 #'
 #' @importFrom shiny NS tagList 
+
+options(digits=9)
 mod_base_leaflet_ui <- function(id){
   ns <- NS(id)
   tagList(
@@ -71,6 +73,7 @@ mod_base_leaflet_server <- function(input, output, session, r){
       else if(metric == 3){scales::number(d@data[,metric_data], suffix="%")}
     ) %>%
       lapply(htmltools::HTML) })
+  
   output$generateMap <- renderLeaflet({
     # generate base leaflet
     lac_zctas_data %>%
@@ -106,7 +109,7 @@ mod_base_leaflet_server <- function(input, output, session, r){
                                                color = "#666",
                                                dashArray = "",
                                                fillOpacity = 0.7,
-                                               bringToFront = TRUE),
+                                               bringToFront = FALSE),
                   label = labels)
   })
   
@@ -131,6 +134,29 @@ mod_base_leaflet_server <- function(input, output, session, r){
   observeEvent(input$generateMap_shape_click,
                {r$mod_base_leaflet$shape_click <- input$generateMap_shape_click$id
                }, ignoreNULL = FALSE)
+
+
+observe({
+  d <- dataInput()
+  d1 <- d[d@data$GEOID10==r$mod_base_leaflet$shape_click,]
+  leafletProxy("generateMap", data = d1) %>%
+    clearGroup("highlight") %>%
+    addPolygons(#layerId = ~GEOID10,
+                group = "highlight",
+                fillColor = "black",
+                weight = 5,
+                opacity = 1,
+                color = "black",
+                dashArray = "3",
+                highlight = highlightOptions(weight = 2,
+                                             color = "#666",
+                                             dashArray = "",
+                                             fillOpacity = 1,
+                                             bringToFront = TRUE)
+    )
+ # }
+})
+
 }
 
 ## observer for legend

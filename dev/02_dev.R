@@ -53,6 +53,7 @@ golem::add_css_file( "out_panels" )
 ## Add internal datasets ----
 ## If you have data in your package
 usethis::use_data_raw( name="lzdm_dataset", open = FALSE) 
+usethis::use_data_raw( name="zillow_historicals", open = FALSE) 
 
 ## Tests ----
 ## Add one line by test you want to create

@@ -10,11 +10,12 @@ library(stringr)
 options(scipen = 999)
 
 ###load updated Zillow home data 
-d <- read_csv("http://files.zillowstatic.com/research/public/Zip/Zip_Zhvi_AllHomes.csv")
+h <- read_csv("http://files.zillowstatic.com/research/public/Zip/Zip_Zhvi_AllHomes.csv")
+r <- read_csv("http://files.zillowstatic.com/research/public_v2/zori/Zip_ZORI_AllHomesPlusMultifamily_SSA.csv")
 
-###filter for Los Angeles County and pivot home price years and #filter most updated qtr and relevant columns only
+###filter for Los Angeles County and pivot home price years and #filter most updated qtr and relevant columns only - housing price
 
-d1 <- d %>%
+h1 <- h %>%
   filter(grepl("Los Angeles", d$Metro, ignore.case = TRUE)) %>%
   pivot_longer(
     cols = 10:300
@@ -25,6 +26,21 @@ d1 <- d %>%
   select(.,RegionName,home_prices) %>%
   rename(zip_code = RegionName) %>%
   mutate(zip_code = as.factor(zip_code), home_prices = as.numeric(home_prices)) 
+
+###filter for Los Angeles County and pivot home price years and #filter most updated qtr and relevant columns only - rent
+r1 <- r %>%
+  pivot_longer(
+    cols = 4:81
+    , names_to = "qtr"
+    , values_to = "market_rent"
+  ) %>%
+  filter(.,qtr==last(qtr)) %>%
+  select(.,RegionName,market_rent) %>%
+  rename(zip_code = RegionName) %>%
+  mutate(zip_code = as.factor(zip_code), market_rent= as.numeric(market_rent)) 
+
+### join home price and rent data
+d1 <- dplyr::left_join(x=h1,y=r1,by="zip_code")
 
 #dummy feature data
 d1$household_income <- round(runif(nrow(d1),10000,5000000),0)
@@ -90,3 +106,5 @@ lac_zctas_data@data$name <- str_squish(lac_zctas_data@data$name)
 #lac_zctas_data@data$name <- str_replace_na(lac_zctas_data@data$name,"")
 
 usethis::use_data(lac_zctas_data, overwrite = TRUE)
+
+str(lac_zctas_data@data)
