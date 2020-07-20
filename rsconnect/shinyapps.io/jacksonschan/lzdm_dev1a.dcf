@@ -5,8 +5,8 @@ account: jacksonschan
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2582003
-bundleId: 3402753
+bundleId: 3411102
 url: https://jacksonschan.shinyapps.io/lzdm_dev1a/
-when: 1594968025.22213
+when: 1595229439.49049
 asMultiple: FALSE
 asStatic: FALSE

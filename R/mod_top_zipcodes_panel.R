@@ -14,9 +14,13 @@ mod_top_zipcodes_panel_ui <- function(id){
       id = "top-zips"
       , class = "out-panel" 
       , fixed=TRUE
-      , h2(class="out-header", id="table-header", "Zip Table")
-      , div(class="out-text",textOutput(ns("TopZips")))
+      , h3(class="out-header", id="table-header", "Zip Table")
+    #  , div(class="out-text",textOutput(ns("TopZips")))
+      , fluidRow(
+      column(10,offset=1,
+       DT::dataTableOutput(ns("ziptable")))
       )
+    )
     )
 }
     
@@ -24,9 +28,36 @@ mod_top_zipcodes_panel_ui <- function(id){
 #' top_zipcodes_panel Server Function
 #'
 #' @noRd 
-mod_top_zipcodes_panel_server <- function(input, output, session){
+mod_top_zipcodes_panel_server <- function(input, output, session,r){
   ns <- session$ns
-  output$TopZips <- renderText({})
+ # output$TopZips <- renderText({})
+  
+  data <- reactive({
+    d <- zip_dataset@data %>%
+      dplyr::filter(.
+                    , home_prices >= r$user_inputs_server$HomePrices[1]
+                    , home_prices <= r$user_inputs_server$HomePrices[2]) %>% 
+      dplyr::mutate(.,home_prices = scales::dollar(home_prices), market_rent=scales::dollar(market_rent)) %>%
+      dplyr::select(.,GEOID10,home_prices,market_rent)
+      
+    d
+  })
+  
+  output$ziptable <- DT::renderDataTable({
+    d <- data()
+    DT::datatable(d, options = list(
+      lengthMenu=5
+      , pageLength =5
+      , lengthChange = FALSE
+      , autoWidth = TRUE
+      , columnDefs = list(list(width = '150px', targets = "_all"))
+      , scrollY = '100px'
+      ) 
+      , colnames = c('Zip', 'Value', 'Rent')
+      , rownames = FALSE
+
+      )
+  })
 }
     
 ## To be copied in the UI
