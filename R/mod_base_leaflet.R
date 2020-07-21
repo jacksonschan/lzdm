@@ -30,7 +30,7 @@ mod_base_leaflet_server <- function(input, output, session, r){
   
   dataInput <- reactive({
     #r$user_inputs_server$HomePrices[1] 
-    filtered <- zip_dataset[
+    zip_dataset[
       zip_dataset@data$home_prices >= r$user_inputs_server$HomePrices[1] 
       & zip_dataset@data$home_prices <= r$user_inputs_server$HomePrices[2]
        # & zip_dataset@data$household_income >= r$user_inputs_server$HouseholdIncome[1]
@@ -38,8 +38,6 @@ mod_base_leaflet_server <- function(input, output, session, r){
        # & zip_dataset@data$education <= r$user_inputs_server$Education[1]
        # & zip_dataset@data$safety <= r$user_inputs_server$Crime[1],
       , ]
-    zip_dataset <- filtered
-    zip_dataset
   })
   
   colorpal <- 

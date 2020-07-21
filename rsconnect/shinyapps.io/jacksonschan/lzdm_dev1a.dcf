@@ -6,6 +6,7 @@ server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2582003
 <<<<<<< HEAD
+<<<<<<< HEAD
 bundleId: 3411148
 url: https://jacksonschan.shinyapps.io/lzdm_dev1a/
 when: 1595230708.78303
@@ -14,5 +15,10 @@ bundleId: 3411102
 url: https://jacksonschan.shinyapps.io/lzdm_dev1a/
 when: 1595229439.49049
 >>>>>>> c92520b2c3bd0f926c4df03b807a6b530118aca8
+=======
+bundleId: 3415922
+url: https://jacksonschan.shinyapps.io/lzdm_dev1a/
+when: 1595321219.15002
+>>>>>>> feature_zip_table
 asMultiple: FALSE
 asStatic: FALSE
