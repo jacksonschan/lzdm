@@ -44,8 +44,15 @@ golem::add_module( name = "metric_selection" )
 
 ## Add helper functions ----
 ## Creates ftc_* and utils_*
+<<<<<<< HEAD
 golem::add_fct( "ggplot" ) 
 
+=======
+golem::add_fct( "shape_color_palette" ) 
+golem::add_fct( "ggplot" ) 
+golem::add_fct( "shape_label" ) 
+golem::add_utils( "helpers" )
+>>>>>>> a784b99db2dd3bc2a98b2c81209932ba2af4163b
 
 ## External resources
 ## Creates .js and .css files at inst/app/www

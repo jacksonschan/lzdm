@@ -131,13 +131,22 @@ output$rank <- renderUI({
 
 output$value_plot <- plotly::renderPlotly({
   l <- link()
+<<<<<<< HEAD
+=======
+  d <- zillow_historicals[zillow_historicals$zip_code==l,]
+>>>>>>> a784b99db2dd3bc2a98b2c81209932ba2af4163b
   
   if(is.null(l))
     return()
   else{
+<<<<<<< HEAD
    # library(ggplot2)
    # library(plotly)
     d <- zillow_historicals[zillow_historicals$zip_code==l,]
+=======
+    library(ggplot2)
+    library(plotly)
+>>>>>>> a784b99db2dd3bc2a98b2c81209932ba2af4163b
     gg(d)
   }
 })
