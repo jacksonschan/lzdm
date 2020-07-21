@@ -29,14 +29,21 @@ usethis::use_package( "htmltools" )
 usethis::use_package( "DT" )
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> feature_zip_table
 usethis::use_package( "scales" )
+usethis::use_package( "plotly" )
 
+<<<<<<< HEAD
 >>>>>>> development
 =======
 usethis::use_package( "scales" )
 
 >>>>>>> c92520b2c3bd0f926c4df03b807a6b530118aca8
+=======
+>>>>>>> feature_zip_table
 
 ## Add modules ----
 ## Create a module infrastructure in R/
@@ -51,9 +58,8 @@ golem::add_module( name = "metric_selection" )
 
 ## Add helper functions ----
 ## Creates ftc_* and utils_*
-golem::add_fct( "shape_color_palette" ) 
-golem::add_fct( "shape_label" ) 
-golem::add_utils( "helpers" )
+golem::add_fct( "ggplot" ) 
+
 
 ## External resources
 ## Creates .js and .css files at inst/app/www
