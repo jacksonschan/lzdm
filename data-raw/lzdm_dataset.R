@@ -16,7 +16,7 @@ r <- read_csv("http://files.zillowstatic.com/research/public_v2/zori/Zip_ZORI_Al
 ###filter for Los Angeles County and pivot home price years and #filter most updated qtr and relevant columns only - housing price
 
 h1 <- h %>%
-  filter(grepl("Los Angeles", d$Metro, ignore.case = TRUE)) %>%
+  filter(grepl("Los Angeles", h$Metro, ignore.case = TRUE)) %>%
   pivot_longer(
     cols = 10:300
     , names_to = "qtr"
@@ -96,15 +96,14 @@ la_df <- df[!is.na(df$zip_code),]
 #dff <- dff[is.na(df$name)==FALSE,]
 
 ## join data to zip code names
-lac_zctas_data <- geo_join(lac_zctas_data, 
+zip_dataset <- geo_join(lac_zctas_data, 
                            la_df, 
                            by_sp = "GEOID10", 
                            by_df = "zip_code",
                            how = "inner")
-lac_zctas_data@data$name <- str_squish(lac_zctas_data@data$name)
+zip_dataset@data$name <- str_squish(zip_dataset@data$name)
 
 #lac_zctas_data@data$name <- str_replace_na(lac_zctas_data@data$name,"")
 
-usethis::use_data(lac_zctas_data, overwrite = TRUE)
+usethis::use_data(zip_dataset, overwrite = TRUE)
 
-str(lac_zctas_data@data)

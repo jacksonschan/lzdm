@@ -27,6 +27,11 @@ usethis::use_package( "leaflet" )
 usethis::use_package( "rgdal" )
 usethis::use_package( "htmltools" )
 usethis::use_package( "DT" )
+<<<<<<< HEAD
+=======
+usethis::use_package( "scales" )
+
+>>>>>>> development
 
 ## Add modules ----
 ## Create a module infrastructure in R/

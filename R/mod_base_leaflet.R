@@ -30,16 +30,16 @@ mod_base_leaflet_server <- function(input, output, session, r){
   
   dataInput <- reactive({
     #r$user_inputs_server$HomePrices[1] 
-    filtered <- lac_zctas_data[
-      lac_zctas_data@data$home_prices >= r$user_inputs_server$HomePrices[1] 
-      & lac_zctas_data@data$home_prices <= r$user_inputs_server$HomePrices[2]
-       # & lac_zctas_data@data$household_income >= r$user_inputs_server$HouseholdIncome[1]
-       # & lac_zctas_data@data$household_income <= r$user_inputs_server$HouseholdIncome[2]
-       # & lac_zctas_data@data$education <= r$user_inputs_server$Education[1]
-       # & lac_zctas_data@data$safety <= r$user_inputs_server$Crime[1],
+    filtered <- zip_dataset[
+      zip_dataset@data$home_prices >= r$user_inputs_server$HomePrices[1] 
+      & zip_dataset@data$home_prices <= r$user_inputs_server$HomePrices[2]
+       # & zip_dataset@data$household_income >= r$user_inputs_server$HouseholdIncome[1]
+       # & zip_dataset@data$household_income <= r$user_inputs_server$HouseholdIncome[2]
+       # & zip_dataset@data$education <= r$user_inputs_server$Education[1]
+       # & zip_dataset@data$safety <= r$user_inputs_server$Crime[1],
       , ]
-    lac_zctas_data <- filtered
-    lac_zctas_data
+    zip_dataset <- filtered
+    zip_dataset
   })
   
   colorpal <- 
@@ -76,7 +76,7 @@ mod_base_leaflet_server <- function(input, output, session, r){
   
   output$generateMap <- renderLeaflet({
     # generate base leaflet
-    lac_zctas_data %>%
+    zip_dataset %>%
       leaflet(options = leafletOptions(zoomControl = FALSE)) %>%
       htmlwidgets::onRender("function(el, x) {L.control.zoom({ position: 'topright' }).addTo(this)}")  %>%
       # add base map
