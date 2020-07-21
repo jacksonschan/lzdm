@@ -17,17 +17,19 @@ mod_zip_detail_panel_ui <- function(id){
       , h2(class="out-header",textOutput(ns("zipdetail")))
       , div(class="out-text",uiOutput(ns("ziplink")))
       , fluidRow(
-        column(4,offset=1,
-              div(uiOutput(ns("homeprice")))
+        column(2,offset = 1,
+              
+              uiOutput(ns("homeprice"))
+              ,uiOutput(ns("rent"))
+              
               ),
-        column(6,
+        column(5,
+               div(plotly::plotlyOutput(ns("value_plot"), height = "250px"))
+        ),
+        column(4,
                div(uiOutput(ns("rank")))
         )
-      , fluidRow(
-        column(11,offset=1,
-               div(uiOutput(ns("rent")))
-      )
-          )
+          
       )
     )
   )
@@ -40,20 +42,16 @@ mod_zip_detail_panel_server <- function(input, output, session,r){
   ns <- session$ns
   
   link <- reactive({
-    z <- r$mod_base_leaflet$shape_click
-    z
-  #  print(l)
-  #  url <- a("Click link for Zillow listing for this Zip", href=l)
+    r$mod_base_leaflet$shape_click
+
     })
   
   click_data <- reactive({
     l <- link()
-    dclick <- zip_dataset@data[zip_dataset@data$GEOID10==l,]
-    dclick
+    zip_dataset@data[zip_dataset@data$GEOID10==l,]
   })
   
   rank_data <- reactive({
-    
     l <- link()
     pop <- zip_dataset@data %>%
     dplyr::filter(.,home_prices >= r$user_inputs_server$HomePrices[1], home_prices <= r$user_inputs_server$HomePrices[2]) %>%
@@ -67,7 +65,6 @@ mod_zip_detail_panel_server <- function(input, output, session,r){
       num_rank=pop[pop$GEOID10==l,c("num_rank")],
       num_zips=pop[pop$GEOID10==l,c("rows")]
 )
-    selected
   })
   
   output$ziplink <- renderUI({
@@ -94,7 +91,7 @@ output$homeprice <- renderUI({
     return()
   else{
     tagList(
-      h2("Median Home Values")
+      h3("Home Value")
       , h2(scales::dollar(d$home_prices)))
     }
 })
@@ -106,8 +103,8 @@ output$rent <- renderUI({
     return()
   else{
     tagList(
-      h2("Rent Index")
-      , if(is.na(d$market_rent)==TRUE){h2(paste("No Data"))}
+      h3("Rent Index")
+      , if(is.na(d$market_rent)==TRUE){h3(paste("No Data"))}
       else{h2(scales::dollar(d$market_rent))}
            )
   }
@@ -120,7 +117,7 @@ output$rank <- renderUI({
     return()
   else{
     tagList(
-      h3("Affordability Rank (of filtered Zips)")
+      h3("Affordability Rank")
     , if(nrow(d)==0) {p(paste("Selected zip not in filtered zip results"))}
     else{
       tagList(
@@ -129,6 +126,19 @@ output$rank <- renderUI({
       )
     }
     )
+  }
+})
+
+output$value_plot <- plotly::renderPlotly({
+  l <- link()
+  
+  if(is.null(l))
+    return()
+  else{
+   # library(ggplot2)
+   # library(plotly)
+    d <- zillow_historicals[zillow_historicals$zip_code==l,]
+    gg(d)
   }
 })
 
