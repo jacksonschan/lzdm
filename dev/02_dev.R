@@ -28,10 +28,15 @@ usethis::use_package( "rgdal" )
 usethis::use_package( "htmltools" )
 usethis::use_package( "DT" )
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 usethis::use_package( "scales" )
 
 >>>>>>> development
+=======
+usethis::use_package( "scales" )
+
+>>>>>>> c92520b2c3bd0f926c4df03b807a6b530118aca8
 
 ## Add modules ----
 ## Create a module infrastructure in R/
