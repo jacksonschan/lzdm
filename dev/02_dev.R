@@ -27,11 +27,8 @@ usethis::use_package( "leaflet" )
 usethis::use_package( "rgdal" )
 usethis::use_package( "htmltools" )
 usethis::use_package( "DT" )
-<<<<<<< HEAD
-=======
 usethis::use_package( "scales" )
 
->>>>>>> development
 
 ## Add modules ----
 ## Create a module infrastructure in R/
@@ -47,6 +44,7 @@ golem::add_module( name = "metric_selection" )
 ## Add helper functions ----
 ## Creates ftc_* and utils_*
 golem::add_fct( "shape_color_palette" ) 
+golem::add_fct( "ggplot" ) 
 golem::add_fct( "shape_label" ) 
 golem::add_utils( "helpers" )
 
