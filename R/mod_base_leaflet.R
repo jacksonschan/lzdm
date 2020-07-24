@@ -125,7 +125,7 @@ mod_base_leaflet_server <- function(input, output, session, r){
                 opacity = 0.7, 
                 bins = 7,
               #  className = "info legend leaf-legend",
-                title = metric_palette[metric],
+                title = if(metric_palette[metric]=="Home Prices"){"Home Value"}else{metric_palette[metric]},
                 position = "bottomright")
   })
   

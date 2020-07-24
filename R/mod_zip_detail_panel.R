@@ -14,20 +14,20 @@ mod_zip_detail_panel_ui <- function(id){
       id = "zip-detail"
       , class = "out-panel" 
       , fixed=TRUE
-      , h2(class="out-header",textOutput(ns("zipdetail")))
+      , uiOutput(ns("zipdetail"))
       , div(class="out-text",uiOutput(ns("ziplink")))
       , fluidRow(
-        column(2,offset = 1,
-              
+        column(3,
               uiOutput(ns("homeprice"))
               ,uiOutput(ns("rent"))
               
               ),
-        column(5,
-               div(plotly::plotlyOutput(ns("value_plot"), height = "250px"))
+        column(3,
+               uiOutput(ns("yoy_value"))
+               , uiOutput(ns("rank"))
         ),
-        column(4,
-               div(uiOutput(ns("rank")))
+        column(5,offset=1,
+               div(plotly::plotlyOutput(ns("value_plot"), height = "270px"))
         )
           
       )
@@ -71,16 +71,16 @@ mod_zip_detail_panel_server <- function(input, output, session,r){
     l <- link()
     if(is.null(l))
       return()
-    else{tagList(a(href=paste0("https://www.zillow.com/los-angeles-ca-",l,"/home-values/"),"Click link for Zillow profile for this Zip",target="_blank"))}#"Click link for Zillow listing for this Zip"))
+    else{tagList(a(href=paste0("https://www.zillow.com/los-angeles-ca-",l,"/"),"Click here for Zillow listings for this Zip",target="_blank"))}#"Click link for Zillow listing for this Zip"))
     })
   
   
-output$zipdetail <- renderText({
+output$zipdetail <- renderUI({
   d <- click_data()
   l <- link()
   if(is.null(l))
-    return("Click on a Zip to See Data")
-  else{paste0(d$name," (",l,")" )}
+    {p(id="out-header-no-selection","Click on a Zip to See Data")}
+  else{h2(class="out-header",paste0(d$name," (",l,")" ))}
 })
 
 
@@ -91,8 +91,9 @@ output$homeprice <- renderUI({
     return()
   else{
     tagList(
-      h3("Home Value")
-      , h2(scales::dollar(d$home_prices)))
+       h3(class="out-bigtext-title","Home Value")
+      , h2(class="out-bigtext",scales::dollar(d$home_prices))
+    )
     }
 })
 
@@ -103,9 +104,9 @@ output$rent <- renderUI({
     return()
   else{
     tagList(
-      h3("Rent Index")
-      , if(is.na(d$market_rent)==TRUE){h3(paste("No Data"))}
-      else{h2(scales::dollar(d$market_rent))}
+      h3(class="out-bigtext-title","Rent Index")
+      , if(is.na(d$market_rent)==TRUE){h3(class="out-bigtext",paste("No Data"))}
+      else{h2(class="out-bigtext",scales::dollar(d$market_rent))}
            )
   }
 })
@@ -117,12 +118,13 @@ output$rank <- renderUI({
     return()
   else{
     tagList(
-      h3("Affordability Rank")
+      h3(class="out-bigtext-title","Cost vs. Filtered Zips")
     , if(nrow(d)==0) {p(paste("Selected zip not in filtered zip results"))}
     else{
       tagList(
-        h4(paste0("#",d[,2]," (out of ",d[,3], ") most affordable"))
-        , h4(paste0("More Affordable Then ",round(d[,1]*100,1),"% of Zips"))
+        div(id="rank-text",HTML(paste0("+ ","<b>","#",d[,2],"</b>"," (of ",d[,3], ") cheapest zip"))
+        , br()
+        , HTML(paste0("+ Cheaper than ","<b>",round(d[,1]*100,1),"%","</b>", " of zips")))
       )
     }
     )
@@ -131,23 +133,25 @@ output$rank <- renderUI({
 
 output$value_plot <- plotly::renderPlotly({
   l <- link()
-<<<<<<< HEAD
-=======
-  d <- zillow_historicals[zillow_historicals$zip_code==l,]
->>>>>>> a784b99db2dd3bc2a98b2c81209932ba2af4163b
-  
   if(is.null(l))
     return()
   else{
-<<<<<<< HEAD
-   # library(ggplot2)
-   # library(plotly)
     d <- zillow_historicals[zillow_historicals$zip_code==l,]
-=======
-    library(ggplot2)
-    library(plotly)
->>>>>>> a784b99db2dd3bc2a98b2c81209932ba2af4163b
     gg(d)
+  }
+})
+
+output$yoy_value <- renderUI({
+  l <- link()
+  if(is.null(l))
+    return()
+  else{
+    d <- zillow_historicals[zillow_historicals$zip_code==l,]
+    yoy <- unlist(d[nrow(d),c("home_prices")]/d[nrow(d)-12,c("home_prices")]-1)
+    tagList(
+    h3(class="out-bigtext-title","YoY% Value")
+    , h2(class="out-bigtext", scales::percent(yoy,accuracy=0.01))
+    )
   }
 })
 

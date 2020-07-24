@@ -14,12 +14,14 @@ mod_top_zipcodes_panel_ui <- function(id){
       id = "top-zips"
       , class = "out-panel" 
       , fixed=TRUE
-      , h3(class="out-header", id="table-header", "Zip Table")
+    #  , br()
       , fluidRow(
-      column(10,offset=1,
-       DT::dataTableOutput(ns("ziptable")))
-      )
+      column(10, offset=1,
+       div(id= "data-table",DT::dataTableOutput(ns("ziptable")))
+       )
     )
+      )
+    #)
     )
 }
     
@@ -47,16 +49,17 @@ mod_top_zipcodes_panel_server <- function(input, output, session,r){
       lengthMenu=5
       , pageLength =5
       , lengthChange = FALSE
-      , autoWidth = TRUE
-      , columnDefs = list(list(width = '120px', targets = "_all"))
-      , scrollY = '100px'
+   #   , autoWidth = TRUE
+    #  , columnDefs = list(list(width = "30%", targets = "_all"))
+      , columnDefs = list(list(className = 'dt-center', targets = 0:2))
+     # , scrollY = "150px"
       , order = list(1, 'asc')
-     
       ) 
-      , colnames = c('Zip', 'Value', 'Rent')
+      , colnames = c('Zip', 'Home Value', 'Rent')
       , rownames = FALSE
       , selection = 'single'
-      ) %>% DT::formatCurrency(columns=c('home_prices','market_rent'))
+      #, caption = 'Zip Table'
+      ) %>% DT::formatCurrency(columns=c('home_prices','market_rent'),digits = 0)
 
   })
   

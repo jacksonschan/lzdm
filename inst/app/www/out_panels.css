@@ -13,13 +13,16 @@
    color: black;
    margin-top: 1.2%;
    font-family: "Open Sans","Proxima Nova", "Helvetica Neue";
-   font-size: 3.3vw;
+   font-size: 3.5vw;
    padding-right: 1%;
    margin-bottom: .5vh;
    white-space: nowrap;
    font-weight: bold
  }
  
+ #title-body-text {
+   font-size: 10px;
+ }
  
   #input-header {
     font-size: 2vw;
@@ -74,12 +77,12 @@
   
   #top-zips {
     right: 1.8%;
-    width: 25%;
+    width: 30%;
   }
   
   #zip-detail {
     left: 1.8%;
-    width: 70%;
+    width: 65%;
   }
   
   #metric-panel {
@@ -139,9 +142,62 @@
     transition: opacity 500ms 1s
   }
   
-
-   /* #title-panel {
+  #data-table {
+    margin-top: 4%; 
+    font-size: 77%; 
+    height: 72%; 
+  }
+  
+  .leaflet-control-attribution.leaflet-control {
+    width: 270px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  
+  .out-bigtext-title {
+    text-align: center;
+    width: 250px;
+    margin-top: 20px;
+  }
+  
+  body #rank-text {
+    text-align: center;
+    width: 250px;
+    font-size: 16px;
+  }
+  
+  .out-bigtext {
+    text-align: center;
+    width: 250px;
+    padding-left: 0px;
+    margin-left: 0px;
+    padding-top: 5px;
+    margin-top: 0px;
+  }
+  
+  .col-sm-4 {
+    padding-right: 0px;
+  }
+  .col-sm-5 {
+    bottom: 40px;
+    padding-left: 10px;
+    padding-right: 15px;
+  }
+  
+  .svg-container {
+    right: 20px;
+  }   
       
+  #out-header-no-selection {
+    margin-top: 20px;
+    color: rgb(60,60,60);
+    font-size: 1.2vw;
+    font-style: italic;
+    margin-left: 2.5%;
+    opacity: 1;
+    font-family: "Proxima Nova", "Helvetica Neue";
+  }
+  /*
       background-color: white;
       left: 1.8%;
       top: 1%;

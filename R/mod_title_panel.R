@@ -14,9 +14,8 @@ mod_title_panel_ui <- function(id){
       id = "title-panel"
       , class = "panel panel-default"
       , fixed=TRUE
-      , div(id="title-text",class="body-text",
-            h1("LA County Desirability Map"),
-            textOutput(ns("TitlePanel")))
+      , h1("LA County Desirability Map")
+      , p(id="title-body-text", textOutput(ns("TitlePanel",)))
     )
   )
 }
@@ -26,7 +25,7 @@ mod_title_panel_ui <- function(id){
 #' @noRd 
 mod_title_panel_server <- function(input, output, session){
   ns <- session$ns
-  output$TitlePanel <- renderText({'Filter zip codes with the Inputs Panel below and click on a zip on the map to see more details about the neighborhood'})
+  output$TitlePanel <- renderText({'Adjust the filters below to your desired values and click "Submit" to update the map:'})
 }
     
 ## To be copied in the UI
