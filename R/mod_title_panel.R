@@ -25,7 +25,7 @@ mod_title_panel_ui <- function(id){
 #' @noRd 
 mod_title_panel_server <- function(input, output, session){
   ns <- session$ns
-  output$TitlePanel <- renderText({'Adjust the filters below to your desired values and click "Submit" to update the map:'})
+  output$TitlePanel <- renderText({'Adjust the filters below and click "Apply" to update the map:'})
 }
     
 ## To be copied in the UI

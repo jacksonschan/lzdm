@@ -49,8 +49,8 @@ mod_base_leaflet_server <- function(input, output, session, r){
       metric_palette <- c("Greens" , "Purples", "Reds", "Blues")
       colorNumeric( metric_palette[metric], #colour palatte
                    #palette = "Greens",
-                   domain = d@data[,metric_data
-                                   ]) #data for bins
+                   domain = d@data[,metric_data]) #data for bins
+                    
     })
   
   
@@ -65,7 +65,7 @@ mod_base_leaflet_server <- function(input, output, session, r){
       "<br/>",
       "Zip Code: ",
       d@data$GEOID10, "<br/>",
-      metric_palette[metric],
+      if(metric_palette[metric]=="Home Prices"){"Home Value"}else{metric_palette[metric]},
       if(metric %in% c(1,4)){scales::dollar(d@data[,metric_data])}
       else if(metric == 2){scales::number(d@data[,metric_data],prefix="#")}
       else if(metric == 3){scales::number(d@data[,metric_data], suffix="%")}

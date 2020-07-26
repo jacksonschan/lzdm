@@ -15,20 +15,23 @@ mod_zip_detail_panel_ui <- function(id){
       , class = "out-panel" 
       , fixed=TRUE
       , uiOutput(ns("zipdetail"))
-      , div(class="out-text",uiOutput(ns("ziplink")))
+      , uiOutput(ns("rank"))
       , fluidRow(
         column(3,
               uiOutput(ns("homeprice"))
               ,uiOutput(ns("rent"))
-              
+              ,div(class="out-text",uiOutput(ns("ziplink")))
               ),
         column(3,
                uiOutput(ns("yoy_value"))
-               , uiOutput(ns("rank"))
+               ,uiOutput(ns("yoy_rent"))
+              # , uiOutput(ns("rank"))
         ),
-        column(5,offset=1,
-               div(plotly::plotlyOutput(ns("value_plot"), height = "270px"))
+        column(6,#,offset=1,
+               uiOutput(ns("plot_title"))
+               , div(plotly::plotlyOutput(ns("value_plot"), height = "250px"))
         )
+        
           
       )
     )
@@ -71,7 +74,7 @@ mod_zip_detail_panel_server <- function(input, output, session,r){
     l <- link()
     if(is.null(l))
       return()
-    else{tagList(a(href=paste0("https://www.zillow.com/los-angeles-ca-",l,"/"),"Click here for Zillow listings for this Zip",target="_blank"))}#"Click link for Zillow listing for this Zip"))
+    else{tagList(a(href=paste0("https://www.zillow.com/los-angeles-ca-",l,"/"),"Zillow listings for this Zip",target="_blank"))}#"Click link for Zillow listing for this Zip"))
     })
   
   
@@ -83,6 +86,13 @@ output$zipdetail <- renderUI({
   else{h2(class="out-header",paste0(d$name," (",l,")" ))}
 })
 
+output$plot_title <- renderUI({
+  l <- link()
+  if(is.null(l))
+    return()
+  else{h5("2 Year Home Value Trend")}
+})
+
 
 output$homeprice <- renderUI({
   d <- click_data()
@@ -91,8 +101,8 @@ output$homeprice <- renderUI({
     return()
   else{
     tagList(
-       h3(class="out-bigtext-title","Home Value")
-      , h2(class="out-bigtext",scales::dollar(d$home_prices))
+       p(id="out-bigtext-title","Home Value")
+      , h2(id="out-bigtext",scales::dollar(d$home_prices))
     )
     }
 })
@@ -104,9 +114,9 @@ output$rent <- renderUI({
     return()
   else{
     tagList(
-      h3(class="out-bigtext-title","Rent Index")
-      , if(is.na(d$market_rent)==TRUE){h3(class="out-bigtext",paste("No Data"))}
-      else{h2(class="out-bigtext",scales::dollar(d$market_rent))}
+      p(id="out-bigtext-title","Rent Index")
+      , if(is.na(d$market_rent)==TRUE){h2(id="out-bigtext",paste("No Data"))}
+      else{h2(id="out-bigtext",scales::dollar(d$market_rent))}
            )
   }
 })
@@ -118,13 +128,12 @@ output$rank <- renderUI({
     return()
   else{
     tagList(
-      h3(class="out-bigtext-title","Cost vs. Filtered Zips")
-    , if(nrow(d)==0) {p(paste("Selected zip not in filtered zip results"))}
+    #  p(id="out-bigtext-title","Cost vs. Filtered Zips"),
+    if(nrow(d)==0) {p(id="rank-text",paste("Selected zipcode not in filtered results"))}
     else{
       tagList(
-        div(id="rank-text",HTML(paste0("+ ","<b>","#",d[,2],"</b>"," (of ",d[,3], ") cheapest zip"))
-        , br()
-        , HTML(paste0("+ Cheaper than ","<b>",round(d[,1]*100,1),"%","</b>", " of zips")))
+        div(id="rank-text",HTML(paste0("Home values are lower than ","<b>",d[,3]-d[,2]," of ",d[,3], " (",round(d[,1]*100,1),"%)","</b>", " filtered zipcodes")))
+        
       )
     }
     )
@@ -149,9 +158,29 @@ output$yoy_value <- renderUI({
     d <- zillow_historicals[zillow_historicals$zip_code==l,]
     yoy <- unlist(d[nrow(d),c("home_prices")]/d[nrow(d)-12,c("home_prices")]-1)
     tagList(
-    h3(class="out-bigtext-title","YoY% Value")
-    , h2(class="out-bigtext", scales::percent(yoy,accuracy=0.01))
+    p(id="out-bigtext-title","1YR Home Value Change")
+    , h2(id="out-bigtext", scales::percent(yoy,accuracy=0.01))
     )
+  }
+})
+
+output$yoy_rent <- renderUI({
+  l <- link()
+  if(is.null(l))
+    return()
+  else{
+    d <- zillow_historicals[zillow_historicals$zip_code==l,]
+    if(is.na(d$market_rent))
+    {tagList(
+      p(id="out-bigtext-title","1YR Market Rent Change")
+      ,h2(id="out-bigtext",paste("No Data"))
+      )}
+    else{
+    yoy <- unlist(d[nrow(d),c("market_rent")]/d[nrow(d)-12,c("market_rent")]-1)
+    tagList(
+      p(id="out-bigtext-title","1YR Market Rent Change")
+      , h2(id="out-bigtext", scales::percent(yoy,accuracy=0.01))
+    )}
   }
 })
 

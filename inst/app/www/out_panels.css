@@ -20,6 +20,10 @@
    font-weight: bold
  }
  
+ h5 {
+   margin-bottom: 0%;
+ }
+ 
  #title-body-text {
    font-size: 10px;
  }
@@ -62,7 +66,6 @@
     bottom: 38vh;
 }
         
-  
   .user-input {
     padding-top: 3%;
   }
@@ -126,8 +129,8 @@
   .out-text {
     font-size: 1.75vmin;
     color: white;
-    opacity: 1 !important;
-    margin-left: 2.5%;
+    margin-left: 11%;
+    margin-top: 7%;
     font-family: "Proxima Nova", "Helvetica Neue";
   }
   
@@ -154,38 +157,43 @@
     padding-right: 0px;
   }
   
-  .out-bigtext-title {
-    text-align: center;
-    width: 250px;
-    margin-top: 20px;
+  #out-bigtext-title {
+    text-align: left;
+    margin-top: 7%;
+    margin-left: 11%;
+    margin-bottom: 0%;
+    font-size: 1vw;
+    width: 270px;
   }
   
-  body #rank-text {
-    text-align: center;
-    width: 250px;
-    font-size: 16px;
+  #rank-text {
+    text-align: left;
+   /* width: 250px;*/
+    font-size: 1vw;
+    margin-left: 2.5%;
   }
   
-  .out-bigtext {
-    text-align: center;
-    width: 250px;
+  #out-bigtext {
+    text-align: left;
+    font-size: 2.3vw;
     padding-left: 0px;
-    margin-left: 0px;
-    padding-top: 5px;
+    padding-top: 1%;
+    margin-left: 11%;
     margin-top: 0px;
+    margin-bottom: 3%;
+  }
+ 
+  .col-sm-6.col-sm-offset-3 {
+    bottom: 10px;
   }
   
-  .col-sm-4 {
-    padding-right: 0px;
-  }
-  .col-sm-5 {
-    bottom: 40px;
-    padding-left: 10px;
-    padding-right: 15px;
+  .col-sm-6 {
+    bottom: 30px;
   }
   
   .svg-container {
     right: 20px;
+    bottom: 13px;
   }   
       
   #out-header-no-selection {
@@ -197,6 +205,8 @@
     opacity: 1;
     font-family: "Proxima Nova", "Helvetica Neue";
   }
+  
+
   /*
       background-color: white;
       left: 1.8%;
