@@ -12,8 +12,8 @@ app_ui <- function(request) {
     # List the first level UI elements here 
     #fluidPage(
      # h1("lzdm"),
+   # tags$head(includeScript("google-analytics.js")),
     bootstrapPage(
-
       mod_base_leaflet_ui("base_leaflet_ui_1"), #base map moduel
       
       mod_inputs_panel_ui("inputs_panel_ui_1"), #input panel
@@ -41,13 +41,14 @@ golem_add_external_resources <- function(){
   add_resource_path(
     'www', app_sys('app/www')
   )
- 
+  
   tags$head(
     favicon(),
     tags$link(rel="stylesheet", type="text/css", href="www/out_panels.css"),  tags$link(
       rel = "stylesheet", 
       href="http://fonts.googleapis.com/css?family=Open+Sans"
     ),
+    includeHTML("inst/app/www/google-analytics.html"),
     bundle_resources(
       path = app_sys('app/www'),
       app_title = 'lzdm'

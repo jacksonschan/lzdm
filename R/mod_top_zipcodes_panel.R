@@ -15,6 +15,7 @@ mod_top_zipcodes_panel_ui <- function(id){
       , class = "out-panel" 
       , fixed=TRUE
     #  , br()
+      , h5(id="zip-table-title","Filtered Zips Table")
       , fluidRow(
       column(10, offset=1,
        div(id= "data-table",DT::dataTableOutput(ns("ziptable")))
@@ -38,24 +39,24 @@ mod_top_zipcodes_panel_server <- function(input, output, session,r){
       dplyr::filter(.
                     , home_prices >= r$user_inputs_server$HomePrices[1]
                     , home_prices <= r$user_inputs_server$HomePrices[2]) %>%
-      dplyr::mutate(.,home_prices = home_prices, market_rent) %>%
-      dplyr::select(.,GEOID10,home_prices,market_rent)
-  
+      dplyr::mutate(.,name=unlist(lapply(name,function(x)if(stringr::str_length(gsub("/.*$","",x)) < 20){gsub("/.*$", "",x)} else{stringr::str_c(substr(gsub("/.*$", "",x),1,17),"...")}))
+) %>%
+      dplyr::select(.,GEOID10,name,home_prices,market_rent) 
   })
-  
+
   output$ziptable <- DT::renderDataTable({
     d <- data()
     DT::datatable(d, options = list(
       lengthMenu=5
       , pageLength =5
       , lengthChange = FALSE
-   #   , autoWidth = TRUE
+     # , autoWidth = TRUE
     #  , columnDefs = list(list(width = "30%", targets = "_all"))
-      , columnDefs = list(list(className = 'dt-center', targets = 0:2))
+      , columnDefs = list(list(className = 'dt-left', targets = 0:3))
      # , scrollY = "150px"
       , order = list(1, 'asc')
       ) 
-      , colnames = c('Zip', 'Home Value', 'Rent')
+      , colnames = c('Zip', 'Name', 'Home Value', 'Rent')
       , rownames = FALSE
       , selection = 'single'
       #, caption = 'Zip Table'

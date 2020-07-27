@@ -23,7 +23,7 @@ mod_inputs_panel_ui <- function(id){
                              column(11,
                                     sliderInput(
                                       inputId = ns("HomePrices"),
-                                      label = "Median Home Values ($)",
+                                      label = "ZHVI Home Values ($)",
                                       min = 200000,
                                       max = 5000000,
                                       pre = "$",
@@ -105,7 +105,7 @@ mod_inputs_panel_ui <- function(id){
 #' @noRd 
 mod_inputs_panel_server <- function(input, output, session,r){
   ns <- session$ns
-  output$InputPanel <- renderText({'Adjust the filters below and click "Apply" to update the map:'})
+  output$InputPanel <- renderText({'Adjust the filter below and click "Apply" to update the map. Home value data is from Zillow\'s Home Value Index (ZHVI) and rent data from Zillow\'s Observed Rent Index (ZORI). Data is updated for the most recent completed month and inclusive of all home types.'})
   
   observeEvent(input$Submit,
                {r$user_inputs_server$HomePrices <- input$HomePrices

@@ -130,7 +130,7 @@
     font-size: 1.75vmin;
     color: white;
     margin-left: 11%;
-    margin-top: 7%;
+    margin-top: 9%;
     font-family: "Proxima Nova", "Helvetica Neue";
   }
   
@@ -164,6 +164,7 @@
     margin-bottom: 0%;
     font-size: 1vw;
     width: 270px;
+    font-weight: bold;
   }
   
   #rank-text {
@@ -171,6 +172,16 @@
    /* width: 250px;*/
     font-size: 1vw;
     margin-left: 2.5%;
+    margin-bottom: 0.5%;
+  }
+  
+    
+  p #rank-text {
+    text-align: left;
+   /* width: 250px;*/
+    font-size: 1vw;
+    margin-left: 2.5%;
+    margin-bottom: 0%;
   }
   
   #out-bigtext {
@@ -181,6 +192,7 @@
     margin-left: 11%;
     margin-top: 0px;
     margin-bottom: 3%;
+    color: #236133;
   }
  
   .col-sm-6.col-sm-offset-3 {
@@ -188,7 +200,7 @@
   }
   
   .col-sm-6 {
-    bottom: 30px;
+    bottom: 34px;
   }
   
   .svg-container {
@@ -206,6 +218,16 @@
     font-family: "Proxima Nova", "Helvetica Neue";
   }
   
+  #zip-table-title {
+  margin-left: 7.5%;
+  margin-top: 3%;
+  }
+  
+  .col-sm-10.col-sm-offset-1 {
+  bottom: 30px;
+  padding-left: 0px;
+  padding-right: 0px;
+  }
 
   /*
       background-color: white;
