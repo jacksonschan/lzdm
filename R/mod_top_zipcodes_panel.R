@@ -54,7 +54,7 @@ mod_top_zipcodes_panel_server <- function(input, output, session,r){
     #  , columnDefs = list(list(width = "30%", targets = "_all"))
       , columnDefs = list(list(className = 'dt-left', targets = 0:3))
      # , scrollY = "150px"
-      , order = list(1, 'asc')
+      , order = list(2, 'asc')
       ) 
       , colnames = c('Zip', 'Name', 'Home Value', 'Rent')
       , rownames = FALSE
