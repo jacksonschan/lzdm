@@ -65,7 +65,7 @@ mod_base_leaflet_server <- function(input, output, session, r){
       "<br/>",
       "Zip Code: ",
       d@data$GEOID10, "<br/>",
-      if(metric_palette[metric]=="Home Prices"){"Home Value"}else{metric_palette[metric]},
+      if(metric_palette[metric]=="Home Prices: "){"Home Values: "}else{metric_palette[metric]},
       if(metric %in% c(1,4)){scales::dollar(d@data[,metric_data])}
       else if(metric == 2){scales::number(d@data[,metric_data],prefix="#")}
       else if(metric == 3){scales::number(d@data[,metric_data], suffix="%")}
@@ -125,7 +125,7 @@ mod_base_leaflet_server <- function(input, output, session, r){
                 opacity = 0.7, 
                 bins = 7,
               #  className = "info legend leaf-legend",
-                title = if(metric_palette[metric]=="Home Prices"){"Home Value"}else{metric_palette[metric]},
+                title = if(metric_palette[metric]=="Home Prices"){"Home Values"}else{metric_palette[metric]},
                 position = "bottomright")
   })
   

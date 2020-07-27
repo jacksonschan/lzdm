@@ -1,0 +1,12 @@
+name: lzdm_dev
+title: lzdm_dev
+username:
+account: zipvalue
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2615417
+bundleId: 3439429
+url: https://zipvalue.shinyapps.io/lzdm_dev/
+when: 1595821970.45945
+asMultiple: FALSE
+asStatic: FALSE

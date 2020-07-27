@@ -29,7 +29,7 @@ mod_zip_detail_panel_ui <- function(id){
         ),
         column(6,#,offset=1,
                uiOutput(ns("plot_title"))
-               , div(plotly::plotlyOutput(ns("value_plot"), height = "250px"))
+               , div(plotly::plotlyOutput(ns("value_plot"), height = "240px"))
         )
         
           
@@ -101,7 +101,7 @@ output$homeprice <- renderUI({
     return()
   else{
     tagList(
-       p(id="out-bigtext-title","Home Value")
+       p(id="out-bigtext-title","ZHVI (Home Values)")
       , h2(id="out-bigtext",scales::dollar(d$home_prices))
     )
     }
@@ -114,7 +114,7 @@ output$rent <- renderUI({
     return()
   else{
     tagList(
-      p(id="out-bigtext-title","Rent Index")
+      p(id="out-bigtext-title","ZORI (Rent Index)")
       , if(is.na(d$market_rent)==TRUE){h2(id="out-bigtext",paste("No Data"))}
       else{h2(id="out-bigtext",scales::dollar(d$market_rent))}
            )
@@ -128,12 +128,10 @@ output$rank <- renderUI({
     return()
   else{
     tagList(
-    #  p(id="out-bigtext-title","Cost vs. Filtered Zips"),
-    if(nrow(d)==0) {p(id="rank-text",paste("Selected zipcode not in filtered results"))}
+    if(nrow(d)==0) {p(id="rank-text",paste("Selected zipcode is not in filtered results"))}
     else{
       tagList(
-        div(id="rank-text",HTML(paste0("Home values are lower than ","<b>",d[,3]-d[,2]," of ",d[,3], " (",round(d[,1]*100,1),"%)","</b>", " filtered zipcodes")))
-        
+        div(id="rank-text",HTML(paste0("Zip with the ","<b>",scales::ordinal(d[,2]),"</b>"," lowest home values in your selection (of ",d[,3], " zips)")))
       )
     }
     )
@@ -158,7 +156,7 @@ output$yoy_value <- renderUI({
     d <- zillow_historicals[zillow_historicals$zip_code==l,]
     yoy <- unlist(d[nrow(d),c("home_prices")]/d[nrow(d)-12,c("home_prices")]-1)
     tagList(
-    p(id="out-bigtext-title","1YR Home Value Change")
+    p(id="out-bigtext-title","1YR ZHVI Change")
     , h2(id="out-bigtext", scales::percent(yoy,accuracy=0.01))
     )
   }
@@ -172,13 +170,13 @@ output$yoy_rent <- renderUI({
     d <- zillow_historicals[zillow_historicals$zip_code==l,]
     if(is.na(d$market_rent))
     {tagList(
-      p(id="out-bigtext-title","1YR Market Rent Change")
+      p(id="out-bigtext-title","1YR ZORI Change")
       ,h2(id="out-bigtext",paste("No Data"))
       )}
     else{
     yoy <- unlist(d[nrow(d),c("market_rent")]/d[nrow(d)-12,c("market_rent")]-1)
     tagList(
-      p(id="out-bigtext-title","1YR Market Rent Change")
+      p(id="out-bigtext-title","1YR ZORI Change")
       , h2(id="out-bigtext", scales::percent(yoy,accuracy=0.01))
     )}
   }
