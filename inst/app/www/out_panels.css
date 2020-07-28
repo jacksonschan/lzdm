@@ -206,10 +206,11 @@
     color: #165ab5;
   }
  
+
   .leaflet-control-zoom.leaflet-bar.leaflet-control {
     margin-right: 2.6vh;
   }
-  
+
   #out-header-no-selection {
     margin-top: 20px;
     color: rgb(60,60,60);
