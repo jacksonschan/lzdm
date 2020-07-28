@@ -46,9 +46,9 @@ mod_base_leaflet_server <- function(input, output, session, r){
     #  metric <- as.numeric(r$metric_selection_server$MetricSelect)
       metric <- 1
       metric_data <- metric + 6
-      metric_palette <- c("Greens" , "Purples", "Reds", "Blues")
+      metric_palette <- c("Blues" , "Purples", "Reds", "Blues")
       colorNumeric( metric_palette[metric], #colour palatte
-                   #palette = "Greens",
+                   #palette = "Blues",
                    domain = d@data[,metric_data]) #data for bins
                     
     })

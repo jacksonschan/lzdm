@@ -2,6 +2,7 @@
   h4 {
     font-family: "Proxima Nova", "Helvetica Neue";
     line-height: 80%;
+    font-size: 1.2vh;
   }
   
   h2 {
@@ -146,9 +147,19 @@
   }
   
   #data-table {
-    margin-top: 4%; 
-    font-size: 77%; 
-    height: 72%; 
+    font-size: 78%; 
+  }
+  
+  #DataTables_Table_0_wrapper {
+    margin-left: 6%;
+    bottom: 2vh;
+    
+  }
+  
+  .dataTables_scroll {
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    height: 20vh;
   }
   
   .leaflet-control-attribution.leaflet-control {
@@ -192,22 +203,13 @@
     margin-left: 11%;
     margin-top: 0px;
     margin-bottom: 3%;
-    color: #236133;
+    color: #165ab5;
   }
  
-  .col-sm-6.col-sm-offset-3 {
+  /*.col-sm-6.col-sm-offset-3 {
     bottom: 10px;
-  }
+  }*/
   
-  .col-sm-6 {
-    bottom: 34px;
-  }
-  
-  .svg-container {
-    right: 20px;
-    bottom: 13px;
-  }   
-      
   #out-header-no-selection {
     margin-top: 20px;
     color: rgb(60,60,60);
@@ -220,15 +222,26 @@
   
   #zip-table-title {
   margin-left: 7.5%;
-  margin-top: 3%;
+  margin-top: 4%;
+  margin-bottom: 3%;
+  font-size: 1.2vw;
   }
   
-  .col-sm-10.col-sm-offset-1 {
-  bottom: 30px;
-  padding-left: 0px;
-  padding-right: 0px;
+  #plot-container {
+    background: rgba(0,0,0,0);
+    left: 35%;
+    width: 32%;
+    height: 36%;
+  }
+  
+  #filler {
+    color: rgba(0,0,0,0);
   }
 
+  .svg-container {
+    right: 4.2%;
+    bottom: 1.3vh;
+  }   
   /*
       background-color: white;
       left: 1.8%;

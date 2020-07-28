@@ -16,11 +16,11 @@ mod_top_zipcodes_panel_ui <- function(id){
       , fixed=TRUE
     #  , br()
       , h5(id="zip-table-title","Filtered Zips Table")
-      , fluidRow(
-      column(10, offset=1,
-       div(id= "data-table",DT::dataTableOutput(ns("ziptable")))
-       )
-    )
+     # , fluidRow(
+     # column(10, offset=1,
+      , div(id= "data-table",DT::dataTableOutput(ns("ziptable"), width="95%"))
+      # )
+  #  )
       )
     #)
     )
@@ -47,9 +47,12 @@ mod_top_zipcodes_panel_server <- function(input, output, session,r){
   output$ziptable <- DT::renderDataTable({
     d <- data()
     DT::datatable(d, options = list(
-      lengthMenu=5
-      , pageLength =5
+      lengthMenu= 10
+     , pageLength= 10
+      #,
       , lengthChange = FALSE
+      , scrollY = '80%'
+      , pageLength = FALSE
      # , autoWidth = TRUE
     #  , columnDefs = list(list(width = "30%", targets = "_all"))
       , columnDefs = list(list(className = 'dt-left', targets = 0:3))
