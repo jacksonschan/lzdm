@@ -26,16 +26,20 @@ mod_zip_detail_panel_ui <- function(id){
                uiOutput(ns("yoy_value"))
                ,uiOutput(ns("yoy_rent"))
               # , uiOutput(ns("rank"))
-        ),
-        column(6,#,offset=1,
-               uiOutput(ns("plot_title"))
-               , div(plotly::plotlyOutput(ns("value_plot"), height = "240px"))
+        )#,
+       # column(6,#,offset=1,
+        #       uiOutput(ns("plot_title"))
+       #        , fillPage(plotly::plotlyOutput(ns("value_plot"), height = "80%"))
         )
-        
-          
       )
+    , absolutePanel(id="plot-container"
+                    , class= "out-panel"
+                    , h2(class="out-header",id="filler", paste0("."))
+                    , div(id="rank-text",uiOutput(ns("plot_title")))
+                    , fixed=TRUE
+                    , plotly::plotlyOutput(ns("value_plot"),width="100%", height="75%")
+                    )
     )
-  )
 }
 
 #' zip_detail_panel Server Function
@@ -90,7 +94,7 @@ output$plot_title <- renderUI({
   l <- link()
   if(is.null(l))
     return()
-  else{h5("2 Year Home Value Trend")}
+  else{HTML(paste0("<b>", "2YR Home Value Trend", "<b/>"))}
 })
 
 

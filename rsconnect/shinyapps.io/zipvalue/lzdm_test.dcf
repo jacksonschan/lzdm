@@ -5,8 +5,8 @@ account: zipvalue
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2615433
-bundleId: 3439649
+bundleId: 3444854
 url: https://zipvalue.shinyapps.io/lzdm_test/
-when: 1595829374.23691
+when: 1595920326.12513
 asMultiple: FALSE
 asStatic: FALSE
