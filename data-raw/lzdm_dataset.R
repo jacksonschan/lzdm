@@ -102,6 +102,7 @@ zip_dataset <- geo_join(lac_zctas_data,
                            by_df = "zip_code",
                            how = "inner")
 zip_dataset@data$name <- str_squish(zip_dataset@data$name)
+zip_dataset@data$name <- str_replace(zip_dataset@data$name, " /","/")
 
 #lac_zctas_data@data$name <- str_replace_na(lac_zctas_data@data$name,"")
 

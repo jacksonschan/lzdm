@@ -150,10 +150,20 @@
     font-size: 78%; 
   }
   
-  #DataTables_Table_0_wrapper {
+ /* #DataTables_Table_0_wrapper {
     margin-left: 6%;
     bottom: 2vh;
     
+  }
+  
+  #DataTables_Table_3_wrapper {
+    margin-left: 6%;
+    bottom: 2vh; 
+  }*/
+  
+  .dataTables_wrapper.no-footer {
+    margin-left: 6%;
+    bottom: 2vh; 
   }
   
   .dataTables_scroll {
