@@ -35,7 +35,7 @@ mod_zip_detail_panel_ui <- function(id){
     , absolutePanel(id="plot-container"
                     , class= "out-panel"
                     , h2(class="out-header",id="filler", paste0("."))
-                    , div(id="rank-text",uiOutput(ns("plot_title")))
+                    , div(id="plot-text",uiOutput(ns("plot_title")))
                     , fixed=TRUE
                     , plotly::plotlyOutput(ns("value_plot"),width="100%", height="75%")
                     )

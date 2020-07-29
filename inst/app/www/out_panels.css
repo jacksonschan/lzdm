@@ -58,9 +58,6 @@
     padding-bottom: 5%;
   }
   
-.leaflet-right .leaflet-control {
-    margin-right: 10%;
-}
 
 .leaflet-bottom .leaflet-control {
     margin-bottom: 5%;
@@ -166,6 +163,14 @@
     bottom: 2vh; 
   }
   
+  body {
+    font-size: 0.8vw;
+  }
+  
+   .control-label {
+    font-size: 0.8vw;
+  }
+  
   .dataTables_scroll {
     -webkit-box-sizing: content-box;
     box-sizing: content-box;
@@ -173,9 +178,25 @@
   }
   
   .leaflet-control-attribution.leaflet-control {
-    width: 270px;
+    width: 20vw;
     padding-left: 0px;
-    padding-right: 0px;
+    padding-right: 8px;
+    text-align: right;
+    background-color: rgba(255, 255, 255, 0);
+  }
+  
+  .leaflet-bottom.leaflet-right {
+    right: 1.3vw;
+  }
+  
+  .leaflet-top.leaflet-right {
+    right: 1.3vw;
+    top: 1.5%;
+  }
+  
+  .leaflet-control-zoom.leaflet-bar.leaflet-control {
+    margin-top: 0%;
+    border-top: 0%;
   }
   
   #out-bigtext-title {
@@ -196,7 +217,14 @@
     margin-bottom: 0.5%;
   }
   
-    
+  #plot-text {
+    text-align: left;
+   /* width: 250px;*/
+    font-size: 1vw;
+    margin-left: 3%;
+    margin-bottom: 1%;
+  }
+
   p #rank-text {
     text-align: left;
    /* width: 250px;*/
@@ -215,11 +243,7 @@
     margin-bottom: 3%;
     color: #165ab5;
   }
- 
 
-  .leaflet-control-zoom.leaflet-bar.leaflet-control {
-    margin-right: 2.6vh;
-  }
 
   #out-header-no-selection {
     margin-top: 20px;
@@ -241,7 +265,7 @@
   #plot-container {
     background: rgba(0,0,0,0);
     left: 35%;
-    width: 32%;
+    width: 30%;
     height: 36%;
   }
   
@@ -250,7 +274,7 @@
   }
 
   .svg-container {
-    right: 4.2%;
+    /*right: 4.2%;*/
     bottom: 1.3vh;
   }   
   /*
