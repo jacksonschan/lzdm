@@ -1,18 +1,3 @@
----
-output: github_document
----
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
-)
-```
-
 # ZipValue LA County Zip Explorer
 
 <!-- badges: start -->
@@ -44,6 +29,6 @@ The purpose of ZipValue is to make exploring real estate in LA County easier by 
 
 <hr>
 
-Please note that the 'lzdm' project is released with a
+Please note that the 'golemexample' project is released with a
 [Contributor Code of Conduct](CODE_OF_CONDUCT.md).
 By contributing to this project, you agree to abide by its terms.
