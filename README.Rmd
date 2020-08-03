@@ -13,42 +13,31 @@ knitr::opts_chunk$set(
 )
 ```
 
-# lzdm
+# ZipValue LA County Zip Explorer
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of lzdm is to ...
+The purpose of ZipValue is to make exploring real estate in LA County easier by visualizing home value data by zip code. 
 
-## Installation
+## Data Sources
 
-You can install the released version of lzdm from [CRAN](https://CRAN.R-project.org) with:
++ Data Files: 
+    - Shapefile to zip level data mapping: `data-raw/lzdm_dataset.R` <https://github.com/jacksonschan/lzdm/blob/data-raw/lzdm_dataset.R>
+    - Home value/rent historicals `data-raw/zillow_historicals.R` <https://github.com/jacksonschan/lzdm/blob/data-raw/zillow_historicals.R>
 
-``` r
-install.packages("lzdm")
-```
++ Home Prices by Zip: Imported from most updated Zillow's Home Value Index (ZHVI) for All Homes <https://www.zillow.com/research/data/>
 
-## Example
++ Rent by Zip: Imported from most updated Zillow's Observed Rent Index (ZORI) for All Homes <https://www.zillow.com/research/data/>
 
-This is a basic example which shows you how to solve a common problem:
++ LA County Zip Codes and Zip Code Neighborhood Names:  <http://file.lacounty.gov/SDSInter/lac/1031552_MasterZipCodes.pdf>
 
-```{r example}
-library(lzdm)
-## basic example code
-```
++ ZCTAS Boundaries: Imported from US Census Bureau via `tigris` package <https://www.census.gov/programs-surveys/geography/guidance/geo-areas/zctas.html>
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+## CSS
 
-```{r cars}
-summary(cars)
-```
++ Added with `dev/02_dev.R` <https://github.com/jacksonschan/lzdm/blob/development/dev/02_dev.R>
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date.
++ Personnalized in `inst/app/www/custom.css` <https://github.com/jacksonschan/lzdm/blob/development/inst/app/www/out_panels.css>
 
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
-```
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub!
++ Linked to the app at `R/app_ui.R` <https://github.com/jacksonschan/lzdm/blob/development/R/app_ui.R>
