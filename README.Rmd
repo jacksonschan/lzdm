@@ -22,7 +22,13 @@ The purpose of ZipValue is to make exploring real estate in LA County easier by 
 
 + See the live version at <https://zipvalue.shinyapps.io/lzdm/>
 
-+ You can install and run the tool locally with:
+## Installation 
+
++ Before installing the package in R, you must first install/update to the latest version of GDAL on your local machine (system req for the ```rgdal``` package): <https://gdal.org/download.html>
+
+  - For MacOS: First install Homebrew if you don't already have it: <https://brew.sh/>, then run ```brew install gdal``` in terminal (or ```brew upgrade gdal``` to update to the latest version). 
+
++ Once GDAL is installed/updated, you can install and run the tool in R locally with:
 ```
 if (!require(devtools))
   install.packages("devtools")

@@ -63,7 +63,7 @@ mod_zip_detail_panel_server <- function(input, output, session,r){
     dplyr::filter(.,home_prices >= r$user_inputs_server$HomePrices[1], home_prices <= r$user_inputs_server$HomePrices[2]) %>%
     dplyr::select(.,GEOID10,home_prices) %>%
     dplyr::mutate(
-        perc_rank = percent_rank(home_prices)
+        perc_rank = dplyr::percent_rank(home_prices)
         ,num_rank = dplyr::dense_rank(home_prices)
         ,rows = nrow(.)) 
     selected <- data.frame(
