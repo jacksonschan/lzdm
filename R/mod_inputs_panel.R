@@ -15,12 +15,9 @@ mod_inputs_panel_ui <- function(id){
         , class = "panel panel-default"
         , h2(id="input-header", "LA County Zip Explorer")
         , tags$div(id='demo',
-                   class="collapse in"
-                   , div(
-                         div(id="in-text",textOutput(ns("InputPanel")))
-                         , tagList(
-                           fluidRow(
-                             column(11,
+                   class="collapse in",
+                   div(id="in-text",textOutput(ns("InputPanel"))),
+                   fluidRow(column(11,
                                     sliderInput(
                                       inputId = ns("HomePrices"),
                                       label = "ZHVI Home Values ($)",
@@ -29,101 +26,43 @@ mod_inputs_panel_ui <- function(id){
                                       pre = "$",
                                       value = c(200000,2000000), 
                                       step = 100000,
-                                      width = "100%"
-                                    ))
-                           )
-                            ,
-                           # 
-                           # fluidRow(
-                           #   column(11,
-                           #          sliderInput(
-                           #            ns("Education"),
-                           #            label = "Ranking of Top High School",
-                           #            min = 1,
-                           #            max = 100,
-                           #            value = c(50),
-                           #            step = 5,
-                           #            width = "100%"))
-                           # ),
-                           # 
-                           # fluidRow(
-                           #   column(11,
-                           #          sliderInput(
-                           #            ns("Crime"),
-                           #            label = "Safety Percentile (Safer Than X% of Zips) ",
-                           #            min = 1,
-                           #            max = 100,
-                           #            post = "%",
-                           #            value = c(50),
-                           #            step = 5,
-                           #            width = "100%"))
-                           # ),
-                           # 
-                           # #   fluidRow(
-                           # #   column(11,
-                           # #          sliderInput(
-                           # #            ns("HouseholdIncome"),
-                           # #            label = "Median Household Income",
-                           # #            min = 10000,
-                           # #            max = 5000000,
-                           # #            pre = "$",
-                           # #            value = c(10000,5000000),
-                           # #            step = 10000,
-                           # #            width = "100%"))
-                           # # ),
-                           # 
-                           div(id = "submit",
-                               fluidRow(
-                                 column(6,offset=3,
+                                      width = "100%"),
+                    div(id = "submit",
+                                    fluidRow(column(6, offset=3,
                                         actionButton(
                                           inputId = ns("Submit"),
                                           icon("refresh"),
                                           width = "100%",
-                                          label = "Apply"))
-                               ))
-                         )
+                                          label = "Apply")))
                         )
-                   
+                    )
+                    )
                    )
-        ### ZHVI price slider
-
       ),
-      absolutePanel( #adding seperate minimize button
+      
+      #adding seperate minimize button
+      absolutePanel( 
         id = "minimize-button"
         , class = "panel panel-default"
         , HTML('<button 
                     data-toggle="collapse" 
                     data-target="#demo">Collapse/Expand
-                    </button>')
-      )
+                    </button>'))
       
-  )
-}
+  )}
     
 #' inputs_panel Server Function
 #'
 #' @noRd 
 mod_inputs_panel_server <- function(input, output, session,r){
   ns <- session$ns
-  output$InputPanel <- renderText({'Adjust the filter below and click "Apply" to update the map. Home value data is from Zillow\'s Home Value Index (ZHVI) and rent data from Zillow\'s Observed Rent Index (ZORI). Data is updated for the most recent completed month and inclusive of all home types.'})
+  output$InputPanel <- renderText({'Adjust the filter below and click "Apply" to update the map. Home value data is from Zillow\'s Home Value Index "ZHVI" and rent from Zillow\'s Observed Rent Index "ZORI" (missing for some zips). Data is updated to last/2nd last finished month and includes all home types.'})
   
+## observer to apply home value filter after "apply" 
   observeEvent(input$Submit,
                {r$user_inputs_server$HomePrices <- input$HomePrices
                }, ignoreNULL = FALSE)
-  
-   # observeEvent(input$Submit, {
-   #   r$user_inputs_server$HouseholdIncome <- input$HouseholdIncome
-   # }, ignoreNULL = FALSE)
-  #   
-#      observeEvent(input$Submit, {
-#        r$user_inputs_server$Education <- input$Education
-#      }, ignoreNULL = FALSE)
-#   #   
-#      observeEvent(input$Submit, {
-#        r$user_inputs_server$Crime <- input$Crime
-#      }, ignoreNULL = FALSE)
-#   # 
- }
+  }
 
     
 ## To be copied in the UI

@@ -11,8 +11,8 @@ library(lubridate)
 options(scipen = 999)
 
 ###load updated Zillow home data 
-h <- read_csv("http://files.zillowstatic.com/research/public_v2/zhvi/Zip_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_mon.csv")
-r <- read_csv("http://files.zillowstatic.com/research/public_v2/zori/Zip_ZORI_AllHomesPlusMultifamily_SSA.csv")
+h <- read_csv("http://files.zillowstatic.com/research/public_v2/zhvi/Zip_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_mon.csv") #home values
+r <- read_csv("http://files.zillowstatic.com/research/public_v2/zori/Zip_ZORI_AllHomesPlusMultifamily_SSA.csv") #rent
 
 ###filter for Los Angeles County and pivot home price years and #filter most updated qtr and relevant columns only - housing price
 
@@ -45,5 +45,6 @@ zillow_historicals <- dplyr::left_join(x=h1,y=r1,by=c("zip_code"="zip_code","mon
 zillow_historicals <- zillow_historicals %>% 
   dplyr::mutate(month=ymd(str_c(month,"-01")))
 
+### deploy
 usethis::use_data(zillow_historicals, overwrite = TRUE)
 

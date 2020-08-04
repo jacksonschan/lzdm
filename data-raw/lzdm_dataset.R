@@ -10,8 +10,9 @@ library(stringr)
 options(scipen = 999)
 
 ###load updated Zillow home data 
-h <- read_csv("http://files.zillowstatic.com/research/public_v2/zhvi/Zip_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_mon.csv")
-r <- read_csv("http://files.zillowstatic.com/research/public_v2/zori/Zip_ZORI_AllHomesPlusMultifamily_SSA.csv")
+
+h <- read_csv("http://files.zillowstatic.com/research/public_v2/zhvi/Zip_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_mon.csv") #home values
+r <- read_csv("http://files.zillowstatic.com/research/public_v2/zori/Zip_ZORI_AllHomesPlusMultifamily_SSA.csv") #rent
 
 ###filter for Los Angeles County and pivot home price years and #filter most updated qtr and relevant columns only - housing price
 
@@ -83,28 +84,17 @@ df <- data.frame("zip_code" = pf[,1], "name" = pf[,2])
 df$zip_code <- lapply(df$zip_code, function(x) as.numeric(as.character(x)))
 la_df <- df[!is.na(df$zip_code),]
 
-
-# ## load oc zip code names
-# oc.d <- read_csv("https://enjoyorangecounty.com/wp-content/uploads/2018/05/zip-codes-in-orange-county.csv")
-# 
-# oc.d$`ZIP Code` <- stringr::str_remove_all(oc.d$`ZIP Code`,"ZIP Code ")
-# 
-# oc_df <- data.frame("zip_code" = oc.d$`ZIP Code`, "name" = oc.d$City)
-
-## union la and oc zip code names
-#dff <- rbind(la_df,oc_df)
-#dff <- dff[is.na(df$name)==FALSE,]
-
 ## join data to zip code names
 zip_dataset <- geo_join(lac_zctas_data, 
                            la_df, 
                            by_sp = "GEOID10", 
                            by_df = "zip_code",
                            how = "inner")
+
+## clean remaining extra spaces
 zip_dataset@data$name <- str_squish(zip_dataset@data$name)
 zip_dataset@data$name <- str_replace(zip_dataset@data$name, " /","/")
 
-#lac_zctas_data@data$name <- str_replace_na(lac_zctas_data@data$name,"")
-
+### deploy
 usethis::use_data(zip_dataset, overwrite = TRUE)
 

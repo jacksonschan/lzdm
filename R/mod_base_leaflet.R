@@ -9,16 +9,14 @@
 #' @importFrom shiny NS tagList 
 
 options(digits=9)
+
 mod_base_leaflet_ui <- function(id){
   ns <- NS(id)
   tagList(
     tags$head(
-      tags$style(type = "text/css", "html, body {width:100%;height:100%}")
-    ) , ## html styles
- #   col_6(
-      leafletOutput(ns("generateMap"),width = "100%", height = "100%"
-                    ))
-   # )
+      tags$style(type = "text/css", "html, body {width:100%;height:100%}")), 
+      leafletOutput(ns("generateMap"),width = "100%", height = "100%")
+    )
   
 }
 
@@ -27,37 +25,31 @@ mod_base_leaflet_ui <- function(id){
 #' @noRd 
 mod_base_leaflet_server <- function(input, output, session, r){
   ns <- session$ns
-  
+
+## import data file  
   dataInput <- reactive({
-    #r$user_inputs_server$HomePrices[1] 
     zip_dataset[
       zip_dataset@data$home_prices >= r$user_inputs_server$HomePrices[1] 
       & zip_dataset@data$home_prices <= r$user_inputs_server$HomePrices[2]
-       # & zip_dataset@data$household_income >= r$user_inputs_server$HouseholdIncome[1]
-       # & zip_dataset@data$household_income <= r$user_inputs_server$HouseholdIncome[2]
-       # & zip_dataset@data$education <= r$user_inputs_server$Education[1]
-       # & zip_dataset@data$safety <= r$user_inputs_server$Crime[1],
       , ]
   })
   
+## heatmap color palette selector (based on metric selected)
   colorpal <- 
     reactive({
       d <- dataInput()
-    #  metric <- as.numeric(r$metric_selection_server$MetricSelect)
-      metric <- 1
+      metric <- 1 #place holder for v1 (one available metric)
       metric_data <- metric + 6
       metric_palette <- c("Blues" , "Purples", "Reds", "Blues")
-      colorNumeric( metric_palette[metric], #colour palatte
-                   #palette = "Blues",
+      colorNumeric(metric_palette[metric],
                    domain = d@data[,metric_data]) #data for bins
                     
     })
   
-  
+## zip labels for heatmap hover 
   labels <- reactive({ 
     d <- dataInput() 
-    #metric <- as.numeric(r$metric_selection_server$MetricSelect)
-    metric <- 1
+    metric <- 1 #place holder for v1 (one available metric)
     metric_data <- metric + 6
     metric_palette <- c("Home Prices: ", "Household Income: ", "Education: ", "Safety: ")
     paste0(
@@ -70,7 +62,7 @@ mod_base_leaflet_server <- function(input, output, session, r){
       else if(metric == 2){scales::number(d@data[,metric_data],prefix="#")}
       else if(metric == 3){scales::number(d@data[,metric_data], suffix="%")}
     ) %>%
-      lapply(htmltools::HTML) })
+      lapply(htmltools::HTML)})
   
   output$generateMap <- renderLeaflet({
     # generate base leaflet
@@ -82,7 +74,6 @@ mod_base_leaflet_server <- function(input, output, session, r){
       # set default map psoition
       setView(lat = 34.027497, lng = -118.411887, zoom = 9.5) %>%
       addPolygons()
-
   })
   
   
@@ -92,7 +83,7 @@ mod_base_leaflet_server <- function(input, output, session, r){
     d <- dataInput()
     pal <- colorpal()
     labels <- labels()
-    metric <- 1#as.numeric(r$metric_selection_server$MetricSelect)
+    metric <- 1 #place holder for v1 (one available metric)
     metric_data <- metric + 6
     leafletProxy("generateMap", data = d) %>%
       clearShapes() %>%
@@ -115,31 +106,31 @@ mod_base_leaflet_server <- function(input, output, session, r){
   observe({
     d <- dataInput() 
     pal <- colorpal()
-    metric <- 1#as.numeric(r$metric_selection_server$MetricSelect)
+    metric <- 1 #place holder for v1 (one available metric)
     metric_data <- metric + 6
     metric_palette <- c("Home Prices", "Household Income", "Education", "Safety")
     leafletProxy("generateMap", data = d) %>%
-      clearControls() %>%
-      addLegend(pal = pal, 
+    clearControls() %>%
+    addLegend(pal = pal, 
                 values = d@data[,metric_data], 
                 opacity = 0.7, 
                 bins = 7,
-              #  className = "info legend leaf-legend",
                 title = if(metric_palette[metric]=="Home Prices"){"Home Values"}else{metric_palette[metric]},
                 position = "bottomright")
   })
   
+  ## observe event for zip polygon clicks
   observeEvent(input$generateMap_shape_click,
                {r$mod_base_leaflet$shape_click <- input$generateMap_shape_click$id
                }, ignoreNULL = FALSE)
 
-
-observe({
-  d <- dataInput()
-  d1 <- d[d@data$GEOID10==r$mod_base_leaflet$shape_click,]
-  leafletProxy("generateMap", data = d1) %>%
+  ## observer for zip polygon clicks to higlight clicked polygons
+  observe({
+    d <- dataInput()
+    d1 <- d[d@data$GEOID10==r$mod_base_leaflet$shape_click,]
+    leafletProxy("generateMap", data = d1) %>%
     clearGroup("highlight") %>%
-    addPolygons(#layerId = ~GEOID10,
+    addPolygons(
                 group = "highlight",
                 fillColor = "black",
                 weight = 5,
@@ -152,13 +143,9 @@ observe({
                                              fillOpacity = 1,
                                              bringToFront = TRUE)
     )
- # }
 })
 
 }
-
-## observer for legend
-
 
     
 ## To be copied in the UI
