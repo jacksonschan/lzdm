@@ -14,7 +14,7 @@ shiny::runGitHub("jacksonschan/lzdm")
 ```
 ## Releases
 
-+ 2020-08-06 - v0.1: First release with ZHVI home values filter/view only
++ 2020-08-06 (v0.1): First release with ZHVI home values filter/view only
 
 ## Data Sources
 
