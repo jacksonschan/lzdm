@@ -7,7 +7,7 @@ The purpose of ZipValue is to make exploring real estate in LA County easier by 
 
 + See the live version at <https://zipvalue.shinyapps.io/lzdm/>
 
-+ You can install and run the tool on locally with:
++ You can install and run the tool locally with:
 ```
 devtools::install_github("jacksonschan/lzdm")
 shiny::runGitHub("jacksonschan/lzdm")
