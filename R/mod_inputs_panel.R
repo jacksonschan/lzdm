@@ -56,7 +56,7 @@ mod_inputs_panel_ui <- function(id){
 #' @noRd 
 mod_inputs_panel_server <- function(input, output, session,r){
   ns <- session$ns
-  output$InputPanel <- renderText({'Adjust the filter below and click "Apply" to update the map. Home value data is from Zillow\'s Home Value Index "ZHVI" and rent from Zillow\'s Observed Rent Index "ZORI" (missing for some zips). Data is updated to last/2nd last finished month and includes all home types.'})
+  output$InputPanel <- renderText({'Adjust the filter below and click "Apply" to update the map. Home value data is from Zillow\'s Home Value Index (ZHVI) and rent data is from Zillow\'s Observed Rent Index (ZORI). Data is updated up to the last or 2nd last finished month and includes all home types.'})
   
 ## observer to apply home value filter after "apply" 
   observeEvent(input$Submit,

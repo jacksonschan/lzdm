@@ -34,6 +34,7 @@ mod_top_zipcodes_panel_server <- function(input, output, session,r){
     dplyr::filter(., home_prices >= r$user_inputs_server$HomePrices[1], home_prices <= r$user_inputs_server$HomePrices[2]) %>%
     # shorten zip names thta are too long 
     dplyr::mutate(.,name=unlist(lapply(name,function(x)if(stringr::str_length(gsub("/.*$","",x)) < 20){gsub("/.*$", "",x)} else{stringr::str_c(substr(gsub("/.*$", "",x),1,17),"...")}))
+                  ,market_rent = stringr::str_replace_na(as.character(scales::dollar(market_rent)),"No Data")
 ) %>%
     dplyr::select(.,GEOID10,name,home_prices,market_rent) 
   })
@@ -54,7 +55,7 @@ mod_top_zipcodes_panel_server <- function(input, output, session,r){
       , rownames = FALSE
       , selection = 'single'
       ) %>% 
-      DT::formatCurrency(columns=c('home_prices','market_rent'),digits = 0)
+      DT::formatCurrency(columns=c('home_prices'),digits = 0)
   })
   
   # listener for zip row clicks (enables detail/map highlight changes)
