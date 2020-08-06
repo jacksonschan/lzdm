@@ -18,10 +18,13 @@
 devtools::check()
 rhub::check_for_cran()
 packageVersion("golem") == "0.2.1.9010"
+
 unlink("tests/testthat/test-golem-recommended.R")
+
 golem::use_recommended_tests()
 devtools::test()
 devtools::check()
+
 # Deploy
 
 ## RStudio ----

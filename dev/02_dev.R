@@ -29,6 +29,7 @@ usethis::use_package( "DT" )
 usethis::use_package( "scales" )
 usethis::use_package( "plotly" )
 usethis::use_package( "stringr" )
+usethis::use_package( "htmlwidgets" )
 
 ## Add modules ----
 ## Create a module infrastructure in R/
