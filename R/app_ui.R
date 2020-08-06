@@ -47,8 +47,7 @@ golem_add_external_resources <- function(){
       href="http://fonts.googleapis.com/css?family=Open+Sans"
     ),
     ## google analytics embed
-    includeHTML("inst/app/www/google-analytics.html"),
-
+    includeHTML(paste0(getwd(),"/inst/app/www/google-analytics.html")),
     bundle_resources(
       path = app_sys('app/www'),
       app_title = 'lzdm'
@@ -59,3 +58,4 @@ golem_add_external_resources <- function(){
   )
 }
 
+?includeHTML()
