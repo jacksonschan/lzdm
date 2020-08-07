@@ -41,7 +41,7 @@ mod_top_zipcodes_panel_server <- function(input, output, session,r){
 
   # build zip table
   output$ziptable <- DT::renderDataTable({
-    d <- data()
+    d <- if(r$user_inputs_server$HomePrices[1] == r$user_inputs_server$HomePrices[2]){data.frame("Zip"="", "Name"="", home_prices="","Rent"="")}else{data()}
     DT::datatable(d, options = list(
       lengthMenu= 10
       , pageLength= 10
