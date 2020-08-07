@@ -60,7 +60,10 @@ mod_base_leaflet_server <- function(input, output, session, r){
       if(metric_palette[metric]=="Home Prices: "){"Home Values: "}else{metric_palette[metric]},
       if(metric %in% c(1,4)){scales::dollar(d@data[,metric_data])}
       else if(metric == 2){scales::number(d@data[,metric_data],prefix="#")}
-      else if(metric == 3){scales::number(d@data[,metric_data], suffix="%")}
+      else if(metric == 3){scales::number(d@data[,metric_data], suffix="%")},
+      "<br/>",
+      "Rent: ",
+      stringr::str_replace_na(as.character(scales::dollar(d$market_rent)),"No Data")
     ) %>%
       lapply(htmltools::HTML)})
   

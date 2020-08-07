@@ -3,7 +3,7 @@
   h1 {
     color: black;
     margin-top: 1.2%;
-    font-family: "Open Sans","Proxima Nova", "Helvetica Neue";
+    font-family: "Open Sans","Proxima Nova", "Helvetica Neue", sans-serif;
     font-size: 3.5vw;
     padding-right: 1%;
     margin-bottom: .5vh;
@@ -13,11 +13,11 @@
   
   h2 {
     margin-left: 2.5% ; 
-    font-family: "Proxima Nova", "Helvetica Neue";
+    font-family: "Proxima Nova", "Helvetica Neue", sans-serif;
   }
   
   h4 {
-    font-family: "Proxima Nova", "Helvetica Neue";
+    font-family: "Proxima Nova", "Helvetica Neue", sans-serif;
     line-height: 80%;
     font-size: 1.2vh;
   }  
@@ -32,22 +32,22 @@
       
   .out-header {
     color: rgb(60,60,60);
-    font-size: 2vw;
+    font-size: 4.3vh;
     margin-left: 2.5%;
     opacity: 1 !important;
-    font-family: "Proxima Nova", "Helvetica Neue";
+    font-family: "Proxima Nova", "Helvetica Neue", sans-serif;
   }  
   
   .out-text {
-    font-size: 1.75vmin;
+    font-size: 2vmin;
     color: white;
     margin-left: 11%;
-    margin-top: 9%;
-    font-family: "Proxima Nova", "Helvetica Neue";
+    margin-top: 1.7vh;
+    font-family: "Proxima Nova", "Helvetica Neue", sans-serif;
   }
 
   .control-label {
-    font-size: 0.8vw;
+    font-size: 1.8vh;
   }
   
   #title-body-text {
@@ -59,30 +59,30 @@
     font-weight: 500;
     margin-top: 4%;
     margin-left: 4%;
-    font-family: "Proxima Nova", "Helvetica Neue";
+    font-family: "Proxima Nova", "Helvetica Neue", sans-serif;
   }
   
   #in-text {
-    font-size: 1.75vmin;
+    font-size: 1.8vh;
     padding-bottom: 3%;
     color: rgb(80,80,80);
     max-width: 95%;
-    font-family: "Proxima Nova", "Helvetica Neue";
+    font-family: "Proxima Nova", "Helvetica Neue", sans-serif;
   }
 
   #out-bigtext-title {
     text-align: left;
-    margin-top: 7%;
+    margin-top: 1.3vh;
     margin-left: 11%;
     margin-bottom: 0%;
-    font-size: 1vw;
+    font-size: 1.7vh;
     width: 270px;
     font-weight: bold;
   }
   
   #out-bigtext {
     text-align: left;
-    font-size: 2.3vw;
+    font-size: 4.3vh;
     padding-left: 0px;
     padding-top: 1%;
     margin-left: 11%;
@@ -98,13 +98,13 @@
     font-style: italic;
     margin-left: 2.5%;
     opacity: 1;
-    font-family: "Proxima Nova", "Helvetica Neue";
+    font-family: "Proxima Nova", "Helvetica Neue", sans-serif;
   }
   
   #rank-text {
     text-align: left;
    /* width: 250px;*/
-    font-size: 1vw;
+    font-size: 1.7vh;
     margin-left: 2.5%;
     margin-bottom: 0.5%;
   }
@@ -112,7 +112,7 @@
   #plot-text {
     text-align: left;
    /* width: 250px;*/
-    font-size: 1vw;
+    font-size: 1.7vh;
     margin-left: 3%;
     margin-bottom: 1%;
   }
@@ -120,7 +120,7 @@
   p #rank-text {
     text-align: left;
    /* width: 250px;*/
-    font-size: 1vw;
+    font-size: 1.7vh;
     margin-left: 2.5%;
     margin-bottom: 0%;
   }
@@ -129,7 +129,7 @@
     margin-left: 7.5%;
     margin-top: 4%;
     margin-bottom: 3%;
-    font-size: 1.2vw;
+    font-size: 2.1vh;
   }
   
   #table-header {
