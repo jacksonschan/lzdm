@@ -9,7 +9,8 @@ library(pdftools)
 library(stringr)
 options(scipen = 999)
 
-###load updated Zillow home data 
+
+z <- read_csv("http://files.zillowstatic.com/research/public_v2/zhvf/AllRegionsForPublic.csv") #zillow 1 year forecast
 
 h <- read_csv("http://files.zillowstatic.com/research/public_v2/zhvi/Zip_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_mon.csv") #home values
 r <- read_csv("http://files.zillowstatic.com/research/public_v2/zori/Zip_ZORI_AllHomesPlusMultifamily_SSA.csv") #rent
@@ -29,9 +30,11 @@ h1 <- h %>%
   mutate(zip_code = as.factor(zip_code), home_prices = as.numeric(home_prices)) 
 
 ###filter for Los Angeles County and pivot home price years and #filter most updated qtr and relevant columns only - rent
+
 r1 <- r %>%
+  select(-SizeRank,-Metro,-RegionID) %>%
   pivot_longer(
-    cols = 4:ncol(r)
+    cols = 2:ncol(.)
     , names_to = "month"
     , values_to = "market_rent"
   ) %>%
@@ -40,8 +43,22 @@ r1 <- r %>%
   rename(zip_code = RegionName) %>%
   mutate(zip_code = as.factor(zip_code), market_rent= as.numeric(market_rent)) 
 
+### filter for LA County
+z1 <- z %>% 
+  dplyr::filter(.,Region=="Zip", CountyName %in% c("Los Angeles County","Ventura County","Orange County")) %>%
+  dplyr::select("zip_code"=RegionName, "forecast"=ForecastYoYPctChange)
+
+### calc YoY  
+
+y1 <- zillow_historicals[,1:3] %>%
+  dplyr::mutate(.,yoy=home_prices/dplyr::lag(home_prices,11)-1) %>%
+  dplyr::group_by(zip_code) %>%
+  dplyr::summarise(.,yoy = dplyr::last(yoy, order_by=month))
+
 ### join home price and rent data
-d1 <- dplyr::left_join(x=h1,y=r1,by="zip_code")
+d1 <- dplyr::left_join(x=h1,y=r1,by="zip_code") %>% 
+  dplyr::left_join(x=., y=z1, by="zip_code") %>% 
+  dplyr::left_join(x=.,y=y1, by="zip_code")
 
 #dummy feature data
 d1$household_income <- round(runif(nrow(d1),10000,5000000),0)
@@ -57,6 +74,9 @@ lac_zctas_data <- geo_join(lac_zctas_data,
                            by_sp = "GEOID10", 
                            by_df = "zip_code",
                            how = "inner")
+
+
+lac_zctas_data <- as(lac_zctas_data,'Spatial')
 
 ## load la county zip code name mapping table 
 p <- pdf_text("http://file.lacounty.gov/SDSInter/lac/1031552_MasterZipCodes.pdf") %>% 
@@ -83,7 +103,10 @@ pf <- pt %>%
 df <- data.frame("zip_code" = pf[,1], "name" = pf[,2])
 df$zip_code <- lapply(df$zip_code, function(x) as.numeric(as.character(x)))
 la_df <- df[!is.na(df$zip_code),]
+la_df$zip_code <- as.character(la_df$zip_code)
 
+sum(la_df$zip_code %in% lac_zctas_data@data$GEOID10)
+lac_zctas_data@data$AFFGEOID10
 ## join data to zip code names
 zip_dataset <- geo_join(lac_zctas_data, 
                            la_df, 
@@ -94,6 +117,7 @@ zip_dataset <- geo_join(lac_zctas_data,
 ## clean remaining extra spaces
 zip_dataset@data$name <- str_squish(zip_dataset@data$name)
 zip_dataset@data$name <- str_replace(zip_dataset@data$name, " /","/")
+
 
 ### deploy
 usethis::use_data(zip_dataset, overwrite = TRUE)

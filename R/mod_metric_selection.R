@@ -13,11 +13,11 @@ mod_metric_selection_ui <- function(id){
     absolutePanel( #input panel
       id = "metric-panel"
       , class = "panel panel-default"
-      , div( id = "metric-select" 
+      , div(id = "metric-select" 
       , selectInput(
         ns("MetricSelect")
-        , label = h4("Select Map Metric")
-        , choices = list("Median Home Price" = 1,  "Education" = 2, "Safety" = 3, "Household Income" = 4), 
+        , label = "Select Map Metric"
+        , choices = list("Home Value" = 1,  "1YR Value Change" =4), 
                   selected = 1)),
       )
   )

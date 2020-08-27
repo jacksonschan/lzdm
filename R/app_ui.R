@@ -18,7 +18,8 @@ app_ui <- function(request) {
       
       mod_zip_detail_panel_ui("zip_detail_panel_ui_1"), #zip detail panel
       
-      mod_top_zipcodes_panel_ui("top_zipcodes_panel_ui_1") #zip table panel
+      mod_top_zipcodes_panel_ui("top_zipcodes_panel_ui_1"), #zip table panel
+      mod_metric_selection_ui("metric_selection_ui_1")
       
   ))
 }

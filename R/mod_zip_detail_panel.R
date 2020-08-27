@@ -95,7 +95,7 @@ mod_zip_detail_panel_server <- function(input, output, session,r){
   l <- link()
   if(is.null(l))
     return()
-  else{HTML(paste0("<b>", "2YR Home Value Trend", "<b/>"))}
+  else{HTML(paste0("<b>", "5YR Home Value Trend", "<b/>"))}
   })
 
   ## home value 

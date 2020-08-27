@@ -13,7 +13,7 @@ app_server <- function( input, output, session ) {
   # user inputs
   #callModule(mod_user_inputs_server, "user_inputs_ui_1",r)
   # metric selection module
- # callModule(mod_metric_selection_server, "metric_selection_ui_1",r)
+  callModule(mod_metric_selection_server, "metric_selection_ui_1",r)
   #input panel
   callModule(mod_inputs_panel_server, "inputs_panel_ui_1",r)
   #base map module

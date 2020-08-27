@@ -1,9 +1,9 @@
 gg <- function(g){
 ## build ggplot
 g <- ggplot2::ggplot(data=g, ggplot2::aes(x=month,y=home_prices,group=zip_code,text=paste("Month: ", month, '<br>Home Value: ', scales::dollar(home_prices)))) + 
-  ggplot2::geom_line() + ggplot2::scale_x_date(date_breaks = "3 month", date_labels = "%m/%y") + 
+  ggplot2::geom_line() + ggplot2::scale_x_date(date_breaks = "12 month", date_labels = "%Y") + 
   ggplot2::theme(plot.title = ggplot2::element_text(size = 13, face = "bold",  ggplot2::margin(b=1), family="Open Sans", color="gray20", hjust=-0.45), 
-    text = ggplot2::element_text(size=11),
+    text = ggplot2::element_text(size=),
     axis.title.x = ggplot2::element_blank(),  
     axis.title.y = ggplot2::element_blank(), 
     plot.background = ggplot2::element_rect(fill = "transparent",colour = NA), 

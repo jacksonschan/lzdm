@@ -217,9 +217,6 @@
     border-top: 0%;
   }
   
-  /*#metric-select {
-    padding: 3% 4% 0% 4%;
-    }*/
 
   /* minimize button styling */
   #minimize-button {
@@ -271,3 +268,24 @@
   .svg-container {
     bottom: 1.3vh;
   }   
+
+ /*metric select panel styling*/
+   .selectize-control.single {
+    margin-left: 1vw;
+    margin-right: 1vw;
+    }
+    
+   .item {
+    font-size: 1vw;
+   }
+   
+   .control-label {
+     margin-top: 1.7vh;
+     margin-left: 1vw;
+     margin-bottom: 1vh;
+     font-size: 1.3vw;
+   }
+   
+   .selectize-dropdown.single {
+     font-size: 1vw;
+   }

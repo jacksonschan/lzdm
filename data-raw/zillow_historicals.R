@@ -10,6 +10,8 @@ library(stringr)
 library(lubridate)
 options(scipen = 999)
 
+
+
 ###load updated Zillow home data 
 h <- read_csv("http://files.zillowstatic.com/research/public_v2/zhvi/Zip_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_mon.csv") #home values
 r <- read_csv("http://files.zillowstatic.com/research/public_v2/zori/Zip_ZORI_AllHomesPlusMultifamily_SSA.csv") #rent
@@ -18,7 +20,7 @@ r <- read_csv("http://files.zillowstatic.com/research/public_v2/zori/Zip_ZORI_Al
 
 h1 <- h %>%
   filter(grepl("Los Angeles", h$Metro, ignore.case = TRUE)) %>%
-  select(.,-c(10:(ncol(h)-24))) %>%
+  select(.,-c(10:(ncol(h)-60))) %>%
   pivot_longer(
     cols = 10:ncol(.)
     , names_to = "month"
@@ -30,7 +32,7 @@ h1 <- h %>%
 
 ###filter for Los Angeles County and pivot home price years and #filter most updated qtr and relevant columns only - rent
 r1 <- r %>%
-  select(.,-c(4:(ncol(r)-24))) %>%
+  select(.,-c(4:(ncol(r)-60))) %>%
   pivot_longer(
     cols = 4:ncol(.)
     , names_to = "month"
