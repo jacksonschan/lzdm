@@ -64,7 +64,7 @@
   
   #in-text {
     font-size: 1.8vh;
-    padding-bottom: 3%;
+    padding-bottom: 2%;
     color: rgb(80,80,80);
     max-width: 95%;
     font-family: "Proxima Nova", "Helvetica Neue", sans-serif;
@@ -139,6 +139,11 @@
     
   #data-table {
     font-size: 78%; 
+  }
+
+/*input controls styling*/
+  .form-group.shiny-input-container {
+    margin-bottom: 0%;
   }
 
 /*panel styling*/
@@ -276,16 +281,16 @@
     }
     
    .item {
-    font-size: 1vw;
+    font-size: 0.8vw;
    }
    
    .control-label {
      margin-top: 1.7vh;
      margin-left: 1vw;
      margin-bottom: 1vh;
-     font-size: 1.3vw;
+     font-size: 1vw;
    }
    
    .selectize-dropdown.single {
-     font-size: 1vw;
+     font-size:0.8vw;
    }

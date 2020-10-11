@@ -28,32 +28,36 @@ mod_base_leaflet_server <- function(input, output, session, r){
 
 ## import data file  
   dataInput <- reactive({
-    zip_dataset$yoy <- zip_dataset$yoy*100
+    yind <- 8 + as.numeric(r$user_inputs_server$years)
+    zip_dataset$yoy <- zip_dataset[[yind]]*100
     zip_dataset[
       zip_dataset@data$home_prices >= r$user_inputs_server$HomePrices[1] 
       & zip_dataset@data$home_prices <= r$user_inputs_server$HomePrices[2]
+      & zip_dataset@data$forecast >= r$user_inputs_server$forecast[1]#/100
+      & zip_dataset@data$forecast <= r$user_inputs_server$forecast[2]#/100
       & zip_dataset@data$yoy >= r$user_inputs_server$YoY[1]#/100
       & zip_dataset@data$yoy <= r$user_inputs_server$YoY[2]#/100
       ,]
   })
   
+  
 ## heatmap color palette selector (based on metric selected)
   colorpal <- 
     reactive({
       d <- dataInput()
-      rc1 <- colorRampPalette(colors = c("firebrick4","firebrick4","yellow"), space = "Lab")(4)
-      rc2 <- colorRampPalette(colors = c("yellow","green4","darkgreen"), space = "Lab")(20)
-      
+     # rc1 <- grDevices::colorRampPalette(colors = c("firebrick4","firebrick4","yellow"), space = "Lab")(50)
+     # rc2 <- grDevices::colorRampPalette(colors = c("yellow","green4","darkgreen"), space = "Lab")(200)
       ## Combine the two color palettes
-      rampcols <- c(rc1, rc2)
+     # rampcols <- c(rc1, rc2)
       metric <- as.numeric(r$metric_selection_server$MetricSelect) 
       metric_data <- metric + 5
-      metric_palette <- c("Blues" , "Purples", "Reds", "RdYlGn")
-      colorNumeric(if(metric==1){"Blues"}else{rampcols},
-                   domain = if(metric==1){d@data[,metric_data]}else{c(-4,20)}) #data for bins
-                    
+      metric_palette <- c("Blues" ,"Reds","Greens", "Purples")
+      colorNumeric(metric_palette[metric],
+                   domain = d@data[,metric_data]) #data for bins)#if(metric==1){d@data[,metric_data]}else{c(-5,0,100)}) #data for bins
+      
     })
   
+
 ## zip labels for heatmap hover 
   labels <- reactive({ 
     d <- dataInput() 
@@ -67,11 +71,14 @@ mod_base_leaflet_server <- function(input, output, session, r){
       "<b>Home Values: </b>",
       scales::dollar(d@data$home_prices),
       "<br/>",
-      "<b>1YR Value Change: </b>",
+      "<b> ",
+      as.character(r$user_inputs_server$years),
+      "YR Value Change: </b>",
       scales::percent(d$yoy/100, accuracy=0.1),
       "<br/>",
-      "<b>Rent: </b>",
-      stringr::str_replace_na(as.character(scales::dollar(d$market_rent)),"No Data")
+      "<b>1YR Forecast (%): </b>",
+      scales::percent(d$forecast/100, accuracy=0.1),
+      "<br/>"
     ) %>%
       lapply(htmltools::HTML)})
   
@@ -119,7 +126,7 @@ mod_base_leaflet_server <- function(input, output, session, r){
     pal <- colorpal()
     metric <- as.numeric(r$metric_selection_server$MetricSelect)  #place holder for v1 (one available metric)
     metric_data <- metric + 5
-    metric_palette <- c("Home Prices", "","", "1YR Value Growth")
+    metric_palette <- c("Home Prices", "","1YR Forecast", paste0(r$user_inputs_server$years,"YR % Change"))
     leafletProxy("generateMap", data = d) %>%
     clearControls() %>%
       

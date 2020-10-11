@@ -13,6 +13,7 @@ options(scipen = 999)
 z <- read_csv("http://files.zillowstatic.com/research/public_v2/zhvf/AllRegionsForPublic.csv") #zillow 1 year forecast
 
 h <- read_csv("http://files.zillowstatic.com/research/public_v2/zhvi/Zip_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_mon.csv") #home values
+
 r <- read_csv("http://files.zillowstatic.com/research/public_v2/zori/Zip_ZORI_AllHomesPlusMultifamily_SSA.csv") #rent
 
 ###filter for Los Angeles County and pivot home price years and #filter most updated qtr and relevant columns only - housing price
@@ -32,7 +33,7 @@ h1 <- h %>%
 ###filter for Los Angeles County and pivot home price years and #filter most updated qtr and relevant columns only - rent
 
 r1 <- r %>%
-  select(-SizeRank,-Metro,-RegionID) %>%
+  select(-SizeRank,-MsaName,-RegionID) %>%
   pivot_longer(
     cols = 2:ncol(.)
     , names_to = "month"
@@ -51,9 +52,20 @@ z1 <- z %>%
 ### calc YoY  
 
 y1 <- zillow_historicals[,1:3] %>%
-  dplyr::mutate(.,yoy=home_prices/dplyr::lag(home_prices,11)-1) %>%
+  dplyr::mutate(.
+                ,yoy=home_prices/dplyr::lag(home_prices,11)-1
+                ,yo2y=home_prices/dplyr::lag(home_prices,23)-1
+                ,yo3y=home_prices/dplyr::lag(home_prices,35)-1
+                ,yo4y=home_prices/dplyr::lag(home_prices,47)-1
+                ,yo5y=home_prices/dplyr::lag(home_prices,59)-1
+                ) %>%
   dplyr::group_by(zip_code) %>%
-  dplyr::summarise(.,yoy = dplyr::last(yoy, order_by=month))
+  dplyr::summarise(.
+                   ,yoy = dplyr::last(yoy, order_by=month)
+                   ,yo2y = dplyr::last(yo2y, order_by=month)
+                   ,yo3y = dplyr::last(yo3y, order_by=month)
+                   ,yo4y = dplyr::last(yo4y, order_by=month)
+                   ,yo5y = dplyr::last(yo5y, order_by=month))
 
 ### join home price and rent data
 d1 <- dplyr::left_join(x=h1,y=r1,by="zip_code") %>% 
@@ -105,8 +117,6 @@ df$zip_code <- lapply(df$zip_code, function(x) as.numeric(as.character(x)))
 la_df <- df[!is.na(df$zip_code),]
 la_df$zip_code <- as.character(la_df$zip_code)
 
-sum(la_df$zip_code %in% lac_zctas_data@data$GEOID10)
-lac_zctas_data@data$AFFGEOID10
 ## join data to zip code names
 zip_dataset <- geo_join(lac_zctas_data, 
                            la_df, 

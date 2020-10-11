@@ -16,8 +16,8 @@ mod_metric_selection_ui <- function(id){
       , div(id = "metric-select" 
       , selectInput(
         ns("MetricSelect")
-        , label = "Select Map Metric"
-        , choices = list("Home Value" = 1,  "1YR Value Change" =4), 
+        , label = "Select Heatmap Metric"
+        , choices = list("Current Home Values" = 1,  "Home Value Change %" =4,  "1YR Home Value Forecast" =3), 
                   selected = 1)),
       )
   )

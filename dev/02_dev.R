@@ -30,6 +30,8 @@ usethis::use_package( "scales" )
 usethis::use_package( "plotly" )
 usethis::use_package( "stringr" )
 usethis::use_package( "htmlwidgets" )
+usethis::use_package( "grDevices" )
+usethis::use_package( "RColorBrewer" )
 
 ## Add modules ----
 ## Create a module infrastructure in R/

@@ -48,7 +48,7 @@ golem_add_external_resources <- function(){
       href="http://fonts.googleapis.com/css?family=Open+Sans"
     ),
     ## google analytics embed
-    includeHTML(paste0(getwd(),"/inst/app/www/google-analytics.html")),
+    includeHTML(paste0(getwd(),"/inst/app/www/google-tags-head.html")),
     bundle_resources(
       path = app_sys('app/www'),
       app_title = 'lzdm'
@@ -57,6 +57,17 @@ golem_add_external_resources <- function(){
     # Add here other external resources
     # for example, you can add shinyalert::useShinyalert() 
   )
+  
+ # tags$body(
+    ## google analytics embed
+  #  includeHTML(paste0(getwd(),"/inst/app/www/google-tags-body.html")),
+   # bundle_resources(
+     # path = app_sys('app/www'),
+     # app_title = 'lzdm'
+   # )
+    # Add here other external resources
+    # for example, you can add shinyalert::useShinyalert() 
+ #)
 }
 
-?includeHTML()
+

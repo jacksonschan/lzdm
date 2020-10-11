@@ -112,7 +112,7 @@ mod_zip_detail_panel_server <- function(input, output, session,r){
       }
 })
   
-  ## output for rent
+  ## output for forecast
   output$rent <- renderUI({
     d <- click_data()
     l <- link()
@@ -120,9 +120,8 @@ mod_zip_detail_panel_server <- function(input, output, session,r){
      return()
     else{
      tagList(
-       p(id="out-bigtext-title","ZORI (Rent Index)")
-       , if(is.na(d$market_rent)==TRUE){h2(id="out-bigtext",paste("No Data"))}
-       else{h2(id="out-bigtext",scales::dollar(d$market_rent))}
+       p(id="out-bigtext-title","ZHVF (1YR Forecast %)")
+       , h2(id="out-bigtext",scales::percent(d$forecast/100,accuracy=0.2))
      )
       }
 })
@@ -156,14 +155,16 @@ mod_zip_detail_panel_server <- function(input, output, session,r){
 
   ## output for year over year home value change
   output$yoy_value <- renderUI({
+    d <- click_data()
     l <- link()
     if(is.null(l))
       return()
     else{
-      d <- zillow_historicals[zillow_historicals$zip_code==l,]
-      yoy <- unlist(d[nrow(d),c("home_prices")]/d[nrow(d)-12,c("home_prices")]-1)
+      yind <- as.numeric(r$user_inputs_server$years) + 8 
+      yoy <- d[,yind]
+      #yoy <- unlist(d[nrow(d),c("home_prices")]/d[nrow(d)-y,c("home_prices")]-1)
       tagList(
-        p(id="out-bigtext-title","1YR ZHVI Change")
+        p(id="out-bigtext-title",paste0(r$user_inputs_server$years,"YR ZHVI Change"))
         , h2(id="out-bigtext", scales::percent(yoy,accuracy=0.01))
         )}
     })
