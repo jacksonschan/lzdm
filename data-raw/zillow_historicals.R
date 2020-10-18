@@ -43,7 +43,7 @@ r1 <- r %>%
   mutate(zip_code = as.factor(zip_code), market_rent= as.numeric(market_rent)) 
 
 ### join home price and rent data
-zillow_historicals <- dplyr::left_join(x=h1,y=r1,by=c("zip_code"="ziphttps://doordash.slack.com/archives/GB3P19G3B_code","month"="month"))
+zillow_historicals <- dplyr::left_join(x=h1,y=r1,by=c("zip_code"="zip_code","month"="month"))
 zillow_historicals <- zillow_historicals %>% 
   dplyr::mutate(month=ymd(str_c(month,"-01")))
 

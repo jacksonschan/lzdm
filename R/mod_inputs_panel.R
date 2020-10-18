@@ -33,7 +33,7 @@ mod_inputs_panel_ui <- function(id){
                           column(8,
                                  sliderInput(
                                    inputId = ns("YoY"),
-                                   label = "ZHVI Change %",
+                                   label = "ZHVI Change (%)",
                                    min = -10,
                                    max = 100,
                                    post = "%",
@@ -43,8 +43,8 @@ mod_inputs_panel_ui <- function(id){
                           column(4,
                                  selectInput(
                                    inputId = ns("years"),
-                                   label = "vs Year(s) Ago",
-                                   choices = list("1" = 1, "2" = 2,"3" = 3,"4" = 4, "5" = 5),
+                                   label = "vs Year",
+                                   choices = list("2019" = 1, "2018" = 2,"2017" = 3,"2016" = 4, "2015" = 5),
                                    selected = 1,
                                    width = "100%")),
                           
@@ -58,9 +58,9 @@ mod_inputs_panel_ui <- function(id){
                             inputId = ns("forecast"),
                             label = "ZHVF 1YR Forecast (% Change)",
                             min = -5,
-                            max = 20,
+                            max = 15,
                             post = "%",
-                            value = c(-5,20), 
+                            value = c(-5,15), 
                             step = 1,
                             width = "100%"))
                    ),

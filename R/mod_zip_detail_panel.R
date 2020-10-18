@@ -19,12 +19,12 @@ mod_zip_detail_panel_ui <- function(id){
       , fluidRow(
         column(3,
               uiOutput(ns("homeprice"))
-              ,uiOutput(ns("rent"))
+              ,uiOutput(ns("forecast"))
               ,div(class="out-text",uiOutput(ns("ziplink")))
               ),
         column(3,
               uiOutput(ns("yoy_value"))
-              ,uiOutput(ns("yoy_rent"))
+              ,uiOutput(ns("max_zhvi"))
               )
         )
       )
@@ -45,6 +45,20 @@ mod_zip_detail_panel_ui <- function(id){
 mod_zip_detail_panel_server <- function(input, output, session,r){
   ns <- session$ns
   
+  ## all data
+  dataInput <- reactive({
+    yind <- 8 + as.numeric(r$user_inputs_server$years)
+    zip_dataset$yoy <- zip_dataset[[yind]]*100
+    zip_dataset[
+      zip_dataset@data$home_prices >= r$user_inputs_server$HomePrices[1] 
+      & zip_dataset@data$home_prices <= r$user_inputs_server$HomePrices[2]
+      & zip_dataset@data$forecast >= r$user_inputs_server$forecast[1]#/100
+      & zip_dataset@data$forecast <= r$user_inputs_server$forecast[2]#/100
+      & zip_dataset@data$yoy >= r$user_inputs_server$YoY[1]#/100
+      & zip_dataset@data$yoy <= r$user_inputs_server$YoY[2]#/100
+      ,]
+  })
+  
   ## reactive for map zip polygon clicks
   link <- reactive({
     r$mod_base_leaflet$shape_click
@@ -59,8 +73,8 @@ mod_zip_detail_panel_server <- function(input, output, session,r){
   ## generating ranking statemnt
   rank_data <- reactive({
     l <- link()
-    pop <- zip_dataset@data %>%
-    dplyr::filter(.,home_prices >= r$user_inputs_server$HomePrices[1], home_prices <= r$user_inputs_server$HomePrices[2]) %>%
+    d <- dataInput()
+    pop <- d@data %>%
     dplyr::select(.,GEOID10,home_prices) %>%
     dplyr::mutate(
         perc_rank = dplyr::percent_rank(home_prices)
@@ -84,9 +98,12 @@ mod_zip_detail_panel_server <- function(input, output, session,r){
   ## zip code + zip name
   output$zipdetail <- renderUI({
     d <- click_data()
+    da <- dataInput()
     l <- link()
     if(is.null(l))
-     {p(id="out-header-no-selection","Click on a Zip to See Data")}
+    {
+      if(nrow(da@data)==0){p(id="out-header-no-selection","There are no Zips in your selected criteria")}else{p(id="out-header-no-selection","Click on a Zip to see data")}
+    }
    else{h2(class="out-header",paste0(d$name," (",l,")" ))}
     })
   
@@ -113,7 +130,7 @@ mod_zip_detail_panel_server <- function(input, output, session,r){
 })
   
   ## output for forecast
-  output$rent <- renderUI({
+  output$forecast <- renderUI({
     d <- click_data()
     l <- link()
     if(is.null(l))
@@ -169,24 +186,18 @@ mod_zip_detail_panel_server <- function(input, output, session,r){
         )}
     })
 
-  ## output for year over year rent change
-  output$yoy_rent <- renderUI({
+  ## output for max 
+  output$max_zhvi <- renderUI({
     l <- link()
+    d <- click_data()
     if(is.null(l))
       return()
     else{
-      d <- zillow_historicals[zillow_historicals$zip_code==l,]
-      if(is.na(d$market_rent))
-      {tagList(
-        p(id="out-bigtext-title","1YR ZORI Change")
-        ,h2(id="out-bigtext",paste("No Data"))
-        )}
-      else{
-        yoy <- unlist(d[nrow(d),c("market_rent")]/d[nrow(d)-12,c("market_rent")]-1)
         tagList(
-          p(id="out-bigtext-title","1YR ZORI Change")
-          , h2(id="out-bigtext", scales::percent(yoy,accuracy=0.01))
-        )}
+          p(id="out-bigtext-title","All-Time Highest ZHVI")
+          , h2(id="out-bigtext", scales::dollar(d$max_price))
+          , em(id="max-smalltext",paste0("Observed on ",substr(as.character(d$max_month),1,7)))
+        )
       }
     })
   

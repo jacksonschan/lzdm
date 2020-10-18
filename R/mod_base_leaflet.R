@@ -45,18 +45,31 @@ mod_base_leaflet_server <- function(input, output, session, r){
   colorpal <- 
     reactive({
       d <- dataInput()
-     # rc1 <- grDevices::colorRampPalette(colors = c("firebrick4","firebrick4","yellow"), space = "Lab")(50)
-     # rc2 <- grDevices::colorRampPalette(colors = c("yellow","green4","darkgreen"), space = "Lab")(200)
-      ## Combine the two color palettes
-     # rampcols <- c(rc1, rc2)
       metric <- as.numeric(r$metric_selection_server$MetricSelect) 
       metric_data <- metric + 5
-      metric_palette <- c("Blues" ,"Reds","Greens", "Purples")
-      colorNumeric(metric_palette[metric],
-                   domain = d@data[,metric_data]) #data for bins)#if(metric==1){d@data[,metric_data]}else{c(-5,0,100)}) #data for bins
+      metric_palette <- c("Purples", "","Blues","Greens")
+      
+      #check for negative values in metric data
+      negative <- sum(d@data[,metric_data]<0)
+      positive <- sum(d@data[,metric_data]>=0)
+      
+      #defining divergent color ramp
+      negcol <- if(metric==4){c("#de2d26", "#fc9272")}else if(metric==3){c("#e6550d", "#fee6ce")}else{"purple"}
+      poscol <- if(metric==4){c("white","#edf8e9","#bae4b3","#74c476","#31a354","#006d2c","#006d2c")}else if(metric==3){c("white","#bdd7e7","#6baed6", "#3182bd","#08519c","#08519c")}else{"purple"} 
+      
+      # Make vector of colors for values below threshold
+      rc1 = grDevices::colorRampPalette(colors = negcol, space="Lab")(if(negative<1){1}else{negative})  
+      # Make vector of colors for values above thresholds
+      rc2 = grDevices::colorRampPalette(colors = poscol, space="Lab")(if(positive>0){positive}else{1})
+      
+      #color ramp
+      rampcols = if(negative==0){metric_palette[metric]}else{c(rc1, rc2)}
+      colorNumeric(if(metric==1 || length(d)==0){metric_palette[metric]}else{rampcols},
+                   domain = d@data[,metric_data])
+
       
     })
-  
+
 
 ## zip labels for heatmap hover 
   labels <- reactive({ 
@@ -134,10 +147,12 @@ mod_base_leaflet_server <- function(input, output, session, r){
                 values = d@data[,metric_data], 
                 opacity = 0.8, 
               labFormat = if(metric_palette[metric]=="Home Prices"){labelFormat(prefix = "$")}else{labelFormat(suffix = "%")},
-                bins = 7,
+                bins = 8,
                 title = if(metric_palette[metric]=="Home Prices"){"Home Values"}else{metric_palette[metric]},
                 position = "bottomright")
   })
+  
+
   
   ## observe event for zip polygon clicks
   observeEvent(input$generateMap_shape_click,

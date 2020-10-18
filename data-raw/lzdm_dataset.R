@@ -33,16 +33,16 @@ h1 <- h %>%
 ###filter for Los Angeles County and pivot home price years and #filter most updated qtr and relevant columns only - rent
 
 r1 <- r %>%
-  select(-SizeRank,-MsaName,-RegionID) %>%
-  pivot_longer(
+  dplyr::select(-SizeRank,-MsaName,-RegionID) %>%
+  tidyr::pivot_longer(
     cols = 2:ncol(.)
     , names_to = "month"
     , values_to = "market_rent"
   ) %>%
-  filter(.,month==last(month)) %>%
-  select(.,RegionName,market_rent) %>%
-  rename(zip_code = RegionName) %>%
-  mutate(zip_code = as.factor(zip_code), market_rent= as.numeric(market_rent)) 
+  dplyr::filter(.,month==last(month)) %>%
+  dplyr::select(.,RegionName,market_rent) %>%
+  dplyr::rename(zip_code = RegionName) %>%
+  dplyr::mutate(zip_code = as.factor(zip_code), market_rent= as.numeric(market_rent)) 
 
 ### filter for LA County
 z1 <- z %>% 
@@ -67,10 +67,26 @@ y1 <- zillow_historicals[,1:3] %>%
                    ,yo4y = dplyr::last(yo4y, order_by=month)
                    ,yo5y = dplyr::last(yo5y, order_by=month))
 
+### calc Max value 
+max <- h %>%
+  dplyr::filter(grepl("Los Angeles", h$Metro, ignore.case = TRUE)) %>%
+  tidyr::pivot_longer(
+    cols = 10:ncol(h)
+    , names_to = "month"
+    , values_to = "home_prices"
+  ) %>%
+  dplyr::group_by(RegionName) %>%
+  dplyr::filter(home_prices == max(na.omit(home_prices))) %>%
+  dplyr::select(.,RegionName,home_prices,month) %>%
+  dplyr::rename(zip_code = RegionName, max_price=home_prices, max_month=month) %>%
+  dplyr::mutate(zip_code = as.factor(zip_code), max_price = as.numeric(max_price)) 
+
+
 ### join home price and rent data
 d1 <- dplyr::left_join(x=h1,y=r1,by="zip_code") %>% 
   dplyr::left_join(x=., y=z1, by="zip_code") %>% 
-  dplyr::left_join(x=.,y=y1, by="zip_code")
+  dplyr::left_join(x=.,y=y1, by="zip_code") %>%
+  dplyr::left_join(x=.,y=max, by="zip_code")
 
 #dummy feature data
 d1$household_income <- round(runif(nrow(d1),10000,5000000),0)
