@@ -10,11 +10,11 @@ library(stringr)
 options(scipen = 999)
 
 
-z <- read_csv("http://files.zillowstatic.com/research/public_v2/zhvf/AllRegionsForPublic.csv") #zillow 1 year forecast
+z <- read_csv("https://files.zillowstatic.com/research/public_v2/zhvf/zhvf_uc_sfrcondo_tier_0.33_0.67_sm_sa_mon.csv") #zillow 1 year forecast
 
-h <- read_csv("http://files.zillowstatic.com/research/public_v2/zhvi/Zip_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_mon.csv") #home values
+h <- read_csv("https://files.zillowstatic.com/research/public_v2/zhvi/Zip_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_mon.csv") #home values
 
-r <- read_csv("http://files.zillowstatic.com/research/public_v2/zori/Zip_ZORI_AllHomesPlusMultifamily_SSA.csv") #rent
+r <- read_csv("https://files.zillowstatic.com/research/public_v2/zori/Zip_ZORI_AllHomesPlusMultifamily_SSA.csv") #rent
 
 ###filter for Los Angeles County and pivot home price years and #filter most updated qtr and relevant columns only - housing price
 
