@@ -44,7 +44,7 @@ mod_inputs_panel_ui <- function(id){
                                  selectInput(
                                    inputId = ns("years"),
                                    label = "vs Year",
-                                   choices = list("2019" = 1, "2018" = 2,"2017" = 3,"2016" = 4, "2015" = 5),
+                                   choices = list("2020" = 1, "2019" = 2, "2018" = 3,"2017" = 4,"2016" = 5),
                                    selected = 1,
                                    width = "100%")),
                           
