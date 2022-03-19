@@ -35,7 +35,7 @@ mod_inputs_panel_ui <- function(id){
                                    inputId = ns("YoY"),
                                    label = "ZHVI Change (%)",
                                    min = -10,
-                                   max = 100,
+                                   max = 120,
                                    post = "%",
                                    value = c(-10,120), 
                                    step = 1,
@@ -44,7 +44,7 @@ mod_inputs_panel_ui <- function(id){
                                  selectInput(
                                    inputId = ns("years"),
                                    label = "vs Year",
-                                   choices = list("2020" = 1, "2019" = 2, "2018" = 3,"2017" = 4,"2016" = 5),
+                                   choices = list("2021" = 1, "2020" = 2, "2019" = 3, "2018" = 4,"2017" = 5),
                                    selected = 1,
                                    width = "100%")),
                           
@@ -58,9 +58,9 @@ mod_inputs_panel_ui <- function(id){
                             inputId = ns("forecast"),
                             label = "ZHVF 1YR Forecast (% Change)",
                             min = -5,
-                            max = 15,
+                            max = 20,
                             post = "%",
-                            value = c(-5,15), 
+                            value = c(-5,20), 
                             step = 1,
                             width = "100%"))
                    ),
@@ -69,7 +69,7 @@ mod_inputs_panel_ui <- function(id){
                                      fluidRow(column(6, offset=3,
                                                      actionButton(
                                                        inputId = ns("Submit"),
-                                                       icon("refresh"),
+                                                       icon("sync"),
                                                        width = "100%",
                                                        label = "Apply")))
                                  

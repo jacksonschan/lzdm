@@ -8,13 +8,14 @@ library(tigris)
 library(pdftools)
 library(stringr)
 options(scipen = 999)
+options(tigris_use_cache = TRUE)
 
 
-z <- read_csv("https://files.zillowstatic.com/research/public_v2/zhvf/zhvf_uc_sfrcondo_tier_0.33_0.67_sm_sa_mon.csv") #zillow 1 year forecast
+z <- read_csv("https://files.zillowstatic.com/research/public_csvs/zhvf_growth/Zip_zhvf_growth_uc_sfrcondo_tier_0.33_0.67_month.csv?t=1647665371") #zillow 1 year forecast
 
-h <- read_csv("https://files.zillowstatic.com/research/public_v2/zhvi/Zip_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_mon.csv") #home values
+h <- read_csv("https://files.zillowstatic.com/research/public_csvs/zhvi/Zip_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_month.csv?t=1647665371") #home values
 
-r <- read_csv("https://files.zillowstatic.com/research/public_v2/zori/Zip_ZORI_AllHomesPlusMultifamily_SSA.csv") #rent
+r <- read_csv("https://files.zillowstatic.com/research/public_csvs/zori/Zip_ZORI_AllHomesPlusMultifamily_Smoothed.csv?t=1647665371") #rent
 
 ###filter for Los Angeles County and pivot home price years and #filter most updated qtr and relevant columns only - housing price
 
@@ -46,8 +47,10 @@ r1 <- r %>%
 
 ### filter for LA County
 z1 <- z %>% 
-  dplyr::filter(.,Region=="Zip", CountyName %in% c("Los Angeles County","Ventura County","Orange County")) %>%
-  dplyr::select("zip_code"=RegionName, "forecast"=ForecastYoYPctChange)
+  dplyr::filter(.,RegionType=="Zip", CountyName %in% c("Los Angeles County","Ventura County","Orange County")) %>%
+  dplyr::select("zip_code"=RegionName, "forecast"=`2023-02-28`)
+
+
 
 ### calc YoY  
 
@@ -94,12 +97,12 @@ d1$education <- round(runif(nrow(d1),1,100),0)
 d1$safety <- round(runif(nrow(d1),1,100),0)
 
 ### load zip boundaries from tigris package
-lac_zctas_data <- zctas(cb = TRUE, starts_with = d1$zip_code)
+lac_zctas_data <- zctas(cb = FALSE, starts_with = d1$zip_code)
 
 # join data to shapefile
 lac_zctas_data <- geo_join(lac_zctas_data, 
                            d1, 
-                           by_sp = "GEOID10", 
+                           by_sp = "GEOID20", 
                            by_df = "zip_code",
                            how = "inner")
 
@@ -136,7 +139,7 @@ la_df$zip_code <- as.character(la_df$zip_code)
 ## join data to zip code names
 zip_dataset <- geo_join(lac_zctas_data, 
                            la_df, 
-                           by_sp = "GEOID10", 
+                           by_sp = "GEOID20", 
                            by_df = "zip_code",
                            how = "inner")
 
@@ -144,6 +147,8 @@ zip_dataset <- geo_join(lac_zctas_data,
 zip_dataset@data$name <- str_squish(zip_dataset@data$name)
 zip_dataset@data$name <- str_replace(zip_dataset@data$name, " /","/")
 
+# fix zipcode varchar issue
+lac_zctas_data@data$GEOID20 <- as.numeric(lac_zctas_data@data$GEOID20)
 
 ### deploy
 usethis::use_data(zip_dataset, overwrite = TRUE)

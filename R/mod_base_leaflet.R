@@ -28,7 +28,7 @@ mod_base_leaflet_server <- function(input, output, session, r){
 
 ## import data file  
   dataInput <- reactive({
-    yind <- 8 + as.numeric(r$user_inputs_server$years)
+    yind <- 12 + as.numeric(r$user_inputs_server$years)
     zip_dataset$yoy <- zip_dataset[[yind]]*100
     zip_dataset[
       zip_dataset@data$home_prices >= r$user_inputs_server$HomePrices[1] 
@@ -41,18 +41,21 @@ mod_base_leaflet_server <- function(input, output, session, r){
   })
   
   
+  #print(r$user_inputs_server$YoY[1])
+
+  
 ## heatmap color palette selector (based on metric selected)
   colorpal <- 
     reactive({
       d <- dataInput()
       metric <- as.numeric(r$metric_selection_server$MetricSelect) 
-      metric_data <- metric + 5
+      metric_data <- metric + 9
       metric_palette <- c("Purples", "","Blues","Greens")
       
       #check for negative values in metric data
       negative <- sum(d@data[,metric_data]<0)
       positive <- sum(d@data[,metric_data]>=0)
-      
+   
       #defining divergent color ramp
       negcol <- if(metric==4){c("#de2d26", "#fc9272")}else if(metric==3){c("#e6550d", "#fee6ce")}else{"purple"}
       poscol <- if(metric==4){c("white","#edf8e9","#bae4b3","#74c476","#31a354","#006d2c","#006d2c")}else if(metric==3){c("white","#bdd7e7","#6baed6", "#3182bd","#08519c","#08519c")}else{"purple"} 
@@ -79,7 +82,7 @@ mod_base_leaflet_server <- function(input, output, session, r){
       d@data$name,
       "<br/>",
       "Zip Code: </b>",
-      d@data$GEOID10, 
+      d@data$GEOID20, 
       "<br/>",
       "<b>Home Values: </b>",
       scales::dollar(d@data$home_prices),
@@ -115,11 +118,11 @@ mod_base_leaflet_server <- function(input, output, session, r){
     pal <- colorpal()
     labels <- labels()
     metric <- as.numeric(r$metric_selection_server$MetricSelect) #place holder for v1 (one available metric)
-    metric_data <- metric + 5
+    metric_data <- metric + 9
     leafletProxy("generateMap", data = d) %>%
       clearShapes() %>%
       addPolygons(fillColor = ~pal(d@data[,metric_data]), 
-                  layerId = ~GEOID10,
+                  layerId = ~GEOID20,
                   weight = 2,
                   opacity = 1,
                   color = "white",
@@ -138,7 +141,7 @@ mod_base_leaflet_server <- function(input, output, session, r){
     d <- dataInput() 
     pal <- colorpal()
     metric <- as.numeric(r$metric_selection_server$MetricSelect)  #place holder for v1 (one available metric)
-    metric_data <- metric + 5
+    metric_data <- metric + 9
     metric_palette <- c("Home Prices", "","1YR Forecast", paste0(r$user_inputs_server$years,"YR % Change"))
     leafletProxy("generateMap", data = d) %>%
     clearControls() %>%
@@ -162,7 +165,7 @@ mod_base_leaflet_server <- function(input, output, session, r){
   ## observer for zip polygon clicks to higlight clicked polygons
   observe({
     d <- dataInput()
-    d1 <- d[d@data$GEOID10==r$mod_base_leaflet$shape_click,]
+    d1 <- d[as.numeric(d@data$GEOID20)==as.numeric(r$mod_base_leaflet$shape_click),]
     leafletProxy("generateMap", data = d1) %>%
     clearGroup("highlight") %>%
     addPolygons(

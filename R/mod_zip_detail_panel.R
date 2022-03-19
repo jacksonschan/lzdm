@@ -47,7 +47,7 @@ mod_zip_detail_panel_server <- function(input, output, session,r){
   
   ## all data
   dataInput <- reactive({
-    yind <- 8 + as.numeric(r$user_inputs_server$years)
+    yind <- 12 + as.numeric(r$user_inputs_server$years)
     zip_dataset$yoy <- zip_dataset[[yind]]*100
     zip_dataset[
       zip_dataset@data$home_prices >= r$user_inputs_server$HomePrices[1] 
@@ -59,6 +59,7 @@ mod_zip_detail_panel_server <- function(input, output, session,r){
       ,]
   })
   
+  
   ## reactive for map zip polygon clicks
   link <- reactive({
     r$mod_base_leaflet$shape_click
@@ -67,7 +68,7 @@ mod_zip_detail_panel_server <- function(input, output, session,r){
   ## pulls zip data map zip polygon clicks
   click_data <- reactive({
     l <- link()
-    zip_dataset@data[zip_dataset@data$GEOID10==l,]
+    zip_dataset@data[zip_dataset@data$GEOID20==l,]
   })
   
   ## generating ranking statemnt
@@ -75,15 +76,15 @@ mod_zip_detail_panel_server <- function(input, output, session,r){
     l <- link()
     d <- dataInput()
     pop <- d@data %>%
-    dplyr::select(.,GEOID10,home_prices) %>%
+    dplyr::select(.,GEOID20,home_prices) %>%
     dplyr::mutate(
         perc_rank = dplyr::percent_rank(home_prices)
         ,num_rank = dplyr::dense_rank(home_prices)
         ,rows = nrow(.)) 
     selected <- data.frame(
-      perc_rank=1-pop[pop$GEOID10==l,c("perc_rank")], 
-      num_rank=pop[pop$GEOID10==l,c("num_rank")],
-      num_zips=pop[pop$GEOID10==l,c("rows")]
+      perc_rank=1-pop[pop$GEOID20==l,c("perc_rank")], 
+      num_rank=pop[pop$GEOID20==l,c("num_rank")],
+      num_zips=pop[pop$GEOID20==l,c("rows")]
       )
   })
  
@@ -138,7 +139,7 @@ mod_zip_detail_panel_server <- function(input, output, session,r){
     else{
      tagList(
        p(id="out-bigtext-title","ZHVF (1YR Forecast %)")
-       , h2(id="out-bigtext",scales::percent(d$forecast/100,accuracy=0.2))
+       , h2(id="out-bigtext",scales::percent(as.numeric(d$forecast)/100,accuracy=0.2))
      )
       }
 })
@@ -154,7 +155,7 @@ mod_zip_detail_panel_server <- function(input, output, session,r){
       if(nrow(d)==0) {p(id="rank-text",paste("Selected zipcode is not in filtered results"))}
       else{
         tagList(
-          div(id="rank-text",HTML(paste0("Zip with the ","<b>",scales::ordinal(d[,2]),"</b>"," lowest home values in your selection (of ",d[,3], " zips)")))
+          div(id="rank-text",HTML(paste0("Zip with the ","<b>",scales::ordinal(as.numeric(d[,2])),"</b>"," lowest home values in your selection (of ",as.numeric(d[,3]), " zips)")))
         )}
       )}
     })
@@ -177,12 +178,12 @@ mod_zip_detail_panel_server <- function(input, output, session,r){
     if(is.null(l))
       return()
     else{
-      yind <- as.numeric(r$user_inputs_server$years) + 8 
+      yind <- as.numeric(r$user_inputs_server$years) + 12
       yoy <- d[,yind]
       #yoy <- unlist(d[nrow(d),c("home_prices")]/d[nrow(d)-y,c("home_prices")]-1)
       tagList(
         p(id="out-bigtext-title",paste0(r$user_inputs_server$years,"YR ZHVI Change"))
-        , h2(id="out-bigtext", scales::percent(yoy,accuracy=0.01))
+        , h2(id="out-bigtext", scales::percent(as.numeric(yoy),accuracy=0.01))
         )}
     })
 
@@ -195,7 +196,7 @@ mod_zip_detail_panel_server <- function(input, output, session,r){
     else{
         tagList(
           p(id="out-bigtext-title","All-Time Highest ZHVI")
-          , h2(id="out-bigtext", scales::dollar(d$max_price))
+          , h2(id="out-bigtext", scales::dollar(as.numeric(d$max_price)))
           , em(id="max-smalltext",paste0("Observed on ",substr(as.character(d$max_month),1,7)))
         )
       }

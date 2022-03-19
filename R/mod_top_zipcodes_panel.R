@@ -28,17 +28,17 @@ mod_top_zipcodes_panel_server <- function(input, output, session,r){
   
   # import and transform zip data for table
   data <- reactive({
-    yind <- 8 + as.numeric(r$user_inputs_server$years)
+    yind <- 12 + as.numeric(r$user_inputs_server$years)
   #  zip_dataset$yox <- zip_dataset[[yind]]
     #load yoy data
     d <- zip_dataset@data %>%
       # filter data per selected home value params
       # shorten zip names thta are too long 
-      dplyr::mutate(.,name=unlist(lapply(name,function(x)if(stringr::str_length(gsub("/.*$","",x)) < 15){gsub("/.*$", "",x)} else{stringr::str_c(substr(gsub("/.*$", "",x),1,12),"...")}))
+      dplyr::mutate(.,name=unlist(lapply(name,function(x)if(stringr::str_length(gsub("/.*$","",x)) < 30){gsub("/.*$", "",x)} else{stringr::str_c(substr(gsub("/.*$", "",x),1,12),"...")}))
                   #  ,market_rent = stringr::str_replace_na(as.character(scales::dollar(market_rent)),"No Data"
                     ,forecast=forecast/100
       ) %>%
-      dplyr::select(.,GEOID10,name,home_prices,"yox"=yind,forecast) %>%
+      dplyr::select(.,GEOID20,name,home_prices,"yox"=yind,forecast) %>%
       dplyr::filter(., home_prices >= r$user_inputs_server$HomePrices[1] 
                     , home_prices <= r$user_inputs_server$HomePrices[2]
                     , yox >= r$user_inputs_server$YoY[1]/100
@@ -48,7 +48,7 @@ mod_top_zipcodes_panel_server <- function(input, output, session,r){
       ) 
   })
   
-  
+ 
   # build zip table
   output$ziptable <- DT::renderDataTable({
     d <- data()
@@ -77,7 +77,7 @@ mod_top_zipcodes_panel_server <- function(input, output, session,r){
                  if(is.null(input$ziptable_rows_selected))
                    return()
                  else{
-                   r$mod_base_leaflet$shape_click <- d[input$ziptable_rows_selected,c("GEOID10")]}
+                   r$mod_base_leaflet$shape_click <- d[input$ziptable_rows_selected,c("GEOID20")]}
                }, ignoreNULL = FALSE)  
   
 }
